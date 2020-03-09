@@ -9,6 +9,21 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="dist/bundle.js"></script>
+
+    <script src="https://unpkg.com/little-loader@0.2.0/dist/little-loader.min.js"></script>
+    <script type="module" >
+      const params = Object.fromEntries(location.search.replace(/^\?/, "").split("&").map((p) => p.split("=")));
+      const { mode } = params;
+
+      // Dynamically load bundle based on searc hparam.
+      const bundle = {
+        production: "dist/bundle.js"
+      }[mode] || "dist/bundle.js";
+
+      console.log("Loading", { mode, bundle });
+      _lload(bundle, (err) => {
+        if (err) { console.error(`Load error for ${bundle}: `, err); }
+      });
+    </script>
   </body>
 </html>

@@ -8,10 +8,17 @@
   "license": "MIT",
   "scripts": {
     "preversion": "yarn run check",
-    "build": "webpack",
+    "build:prod": "webpack",
+    "build:dev": "webpack --mode=development",
+    "start": "serve",
     "lint": "eslint .",
     "check": "yarn lint",
     "check-ci": "yarn lint"
+  },
+  "dependencies": {
+    "htm": "^3.0.3",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
@@ -20,12 +27,8 @@
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-promise": "^4.2.1",
-    "webpack": "^5.0.0-beta"
-  },
-  "dependencies": {
-    "htm": "^3.0.3",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "serve": "^11.3.0",
+    "webpack": "^5.0.0-beta",
     "webpack-cli": "^4.0.0-beta"
   }
 }
