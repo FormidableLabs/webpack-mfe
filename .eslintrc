@@ -1,0 +1,10 @@
+---
+extends:
+  - formidable/configurations/es6-react
+
+settings:
+  react:
+    version: detect
+
+rules:
+  object-property-newline: ["error", { allowAllPropertiesOnSameLine: true }]
