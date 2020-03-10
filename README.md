@@ -25,4 +25,11 @@ Navigate to: http://localhost:3001/ for the entry in to the home page, or indepe
 
 # Resources
 
+Demos:
+
 - https://github.com/mizx/mfe-webpack-demo: Working demos using MFE.
+
+Articles:
+
+- https://dev.to/marais/webpack-5-and-module-federation-4j1i
+- https://itnext.io/webpack-5-module-federation-a-game-changer-to-javascript-architecture-bcdd30e02669
