@@ -15,7 +15,7 @@ module.exports = ({ title }) => ({
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
       title,
-      chunks: ["main"]
+      chunks: []
     })
   ]
 });

@@ -8,7 +8,7 @@
   "scripts": {
     "build": "webpack --mode=development",
     "watch": "yarn -s build --watch",
-    "serve": "serve -l 3005 dist"
+    "serve": "serve -c ../../../serve.json -l 3005 dist"
   },
   "dependencies": {
     "htm": "^3.0.3",

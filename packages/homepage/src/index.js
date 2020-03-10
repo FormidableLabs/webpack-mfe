@@ -5,7 +5,7 @@ import htm from "htm";
 import { Layout } from "./components/layout";
 const html = htm.bind(React.createElement);
 
-const App = () => html `<${Layout} />`;
+const App = (props) => html `<${Layout} ...${props} />`;
 
 ReactDOM.render(
   html `<${App} />`,
