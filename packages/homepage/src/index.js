@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 import htm from "htm";
 const html = htm.bind(React.createElement);
 
-const App = () => html `<h1>Hello, world!</h1>`;
+const App = () => html `<h1>Homepage</h1>`;
 
 ReactDOM.render(
   html `<${App} />`,

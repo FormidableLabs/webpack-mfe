@@ -3,19 +3,19 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+module.exports = ({ title }) => ({
   entry: "src/index.js",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve("dist"),
     pathinfo: true,
     filename: "[name].js"
   },
   devtool: false,
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
-      title: "TODO_TITLE",
+      template: path.resolve(__dirname, "public/index.html"),
+      title,
       chunks: ["main"]
     })
   ]
-};
+});
