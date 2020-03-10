@@ -21,11 +21,11 @@ export const MenuItem = ({ name, to }) => html `
 
 export const Menu = ({ app, items = [] }) => html `
   <div id="menu">
-  <nav className="pure-menu">
-    <${MenuHeader} name="${app}" to="/" />
-    <ul className="pure-menu-list">
-      ${items.map((props, i) => html `<${MenuItem} key=${`menu-item-${i}`} ...${props} />`)}
-    </ul>
-  </nav>
+    <nav className="pure-menu">
+      <${MenuHeader} name="${app}" to="/" />
+      <ul className="pure-menu-list">
+        ${items.map((props, i) => html `<${MenuItem} key=${`menu-item-${i}`} ...${props} />`)}
+      </ul>
+    </nav>
   </div>
 `;

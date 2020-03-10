@@ -23,18 +23,19 @@ const Homepage = () => html `
 `;
 
 
-const Item = ({ match: { params: { id = "NOT SET" } } }) => html `
+const Item = ({ match: { params: { id = "" } } }) => html `
   <${Page}
     name="Item"
   >
     <div>
-      You have chosen Item No. <code>${id}</code>
+      ${id ? html `You have chosen item <code>${id}</code>` : "Welcome to the item page."}
     </div>
   </${Page}>
 `;
 
 const ITEMS = [
   { name: "Homepage", to: "/" },
+  { name: "Items", to: "/item" },
   { name: "Item 123", to: "/item/123" }
 ];
 
@@ -44,26 +45,10 @@ export const Layout = ({ app = "Ecom Site" }) => html `
       <${Menu} app=${app} items=${ITEMS} />
       <${Switch}>
         <${Route} exact path="/" component=${Homepage} />
+        <${Route} exact path="/item/" component=${Item} />
         <${Route} path="/item/:id" component=${Item} />
       </${Switch}>
     </${Router}>
-
-
   </div>
 `;
 
-/*
-
-const URLS = {
-  homepage: "http://127.0.0.1:3001",
-  item: "http://127.0.0.1:3002",
-  search: "http://127.0.0.1:3003",
-  cart: "http://127.0.0.1:3004",
-  checkout: "http://127.0.0.1:3005",
-}
-    <${MenuItem} name="Homepage" to="${URLS.homepage}" />
-    <${MenuItem} name="Item" to="#TODO" />
-    <${MenuItem} name="Search" to="#TODO" />
-    <${MenuItem} name="Cart" to="#TODO" />
-    <${MenuItem} name="Checkout" to="#TODO" />
-*/
