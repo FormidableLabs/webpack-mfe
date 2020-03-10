@@ -10,7 +10,7 @@
     "preversion": "yarn run check",
     "build:prod": "webpack",
     "build:dev": "webpack --mode=development",
-    "start": "serve",
+    "start": "serve dist",
     "lint": "eslint .",
     "check": "yarn lint",
     "check-ci": "yarn lint"
@@ -27,6 +27,7 @@
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-promise": "^4.2.1",
+    "html-webpack-plugin": "PutziSan/html-webpack-plugin",
     "serve": "^11.3.0",
     "webpack": "webpack/webpack#dev-1",
     "webpack-cli": "^4.0.0-beta"

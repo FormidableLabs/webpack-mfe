@@ -7,7 +7,7 @@ A short experiment to see webpack5 MFE support in action.
 
 ```sh
 $ yarn build:dev && \
-  yarn serve
+  yarn start
 ```
 
 Navigate to: http://localhost:5000/?mode=development
@@ -16,7 +16,7 @@ Navigate to: http://localhost:5000/?mode=development
 
 ```sh
 $ yarn build:prod && \
-  yarn serve
+  yarn start
 ```
 
 Navigate to: http://localhost:5000/

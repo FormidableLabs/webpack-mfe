@@ -1,13 +1,21 @@
 "use strict";
 
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     pathinfo: true,
-    filename: "bundle.js"
+    filename: "[name].js"
   },
-  devtool: false
+  devtool: false,
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      title: "TODO_TITLE",
+      chunks: ["main"]
+    })
+  ]
 };
