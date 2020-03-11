@@ -49,9 +49,9 @@ const Layout = ({ app }) => html `
     <${Router}>
       <${Menu} app="${app} (${location.port})" pages=${PAGE_LINKS} apps=${APP_LINKS} />
       <${Switch}>
-        <${Route} exact path="/" component=${Homepage} />
-        <${Route} exact path="/item/" component=${Items} />
-        <${Route} path="/item/:id" component=${Item} />
+        <${Route} exact=${true} path="/" component=${Homepage} />
+        <${Route} exact=${true} path="/item/" component=${Items} />
+        <${Route} exact=${true} path="/item/:id" component=${Item} />
       </${Switch}>
     </${Router}>
   </div>

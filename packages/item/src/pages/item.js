@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 import { Item } from "../components/item";
 import { fetchItem } from "../data/index";
@@ -21,20 +22,26 @@ const Loading = ({ id }) => html `
 `;
 
 const ItemPage = ({ location, match }) => {
+  // Props.
   const item = ((location || {}).state || {}).item;
   const id = ((match || {}).params || {}).id;
 
+  // Hooks.
+  const loc = useLocation();
   const [data, setData] = React.useState(item);
   React.useEffect(() => {
-    // Skip if already have data.
-    if (data) { return; }
+    // Skip if already have data for current element.
+    if (data && data.id === parseInt(id, 10)) {
+      return;
+    }
+
     fetchItem({ id }).then((d) => setData(d)).catch(() => {});
-  }, []);
+  }, [loc]);
 
   return html `
     <${Page} name="Item">
       <div className="pure-u-1-3"></div>
-      ${data ? html `<${Item} ...${data} />` : html `<${Loading} id="${id}" />`}
+      ${data ? html `<${Item} ...${data} />` : html `<${Loading} id=${id} />`}
       <div className="pure-u-1-3"></div>
     </${Page}>
   `;
