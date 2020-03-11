@@ -19,6 +19,6 @@
     "html-webpack-plugin": "PutziSan/html-webpack-plugin",
     "serve": "^11.3.0",
     "webpack": "webpack/webpack#dev-1",
-    "webpack-cli": "^4.0.0-beta"
+    "webpack-cli": "^3.3.11"
   }
 }
