@@ -8,6 +8,6 @@ const html = htm.bind(React.createElement);
 const App = (props) => html `<${Layout} ...${props} />`;
 
 ReactDOM.render(
-  html `<${App} />`,
+  html `<${App} app="Home" />`,
   document.getElementById("root")
 );

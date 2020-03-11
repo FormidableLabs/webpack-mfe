@@ -12,6 +12,6 @@ const App = (props) => html `
 `;
 
 ReactDOM.render(
-  html `<${App} />`,
+  html `<${App} app="Item" />`,
   document.getElementById("root")
 );

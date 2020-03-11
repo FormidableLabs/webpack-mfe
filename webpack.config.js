@@ -4,7 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
-
+// Application constants to share across all builds.
 const APPS = {
   homepage: "http://127.0.0.1:3001",
   item: "http://127.0.0.1:3002"

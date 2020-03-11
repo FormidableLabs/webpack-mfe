@@ -19,10 +19,11 @@ const ITEMS = [
   { name: "Item 123", to: "/item/123" }
 ];
 
-const Layout = ({ app = "Ecom Site" }) => html `
+
+const Layout = ({ app }) => html `
   <div id="layout">
     <${Router}>
-      <${Menu} app=${app} items=${ITEMS} />
+      <${Menu} app="${app} (${location.port})" items=${ITEMS} />
       <${Switch}>
         <${Route} exact path="/" component=${Homepage} />
         <${Route} exact path="/item/" component=${Item} />
