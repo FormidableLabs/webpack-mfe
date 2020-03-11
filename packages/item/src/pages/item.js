@@ -2,10 +2,15 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 import { Item } from "../components/item";
-import { fetchItem } from "../data/index";
 
 import htm from "htm";
 const html = htm.bind(React.createElement);
+
+// TODO: Abstract this (or a memo fn).
+const _data = () => {
+  _data.prom = _data.prom || import("app_homepage/data/index");
+  return _data.prom;
+};
 
 // ----------------------------------------------------------------------------
 // Shared components
@@ -35,7 +40,10 @@ const ItemPage = ({ location, match }) => {
       return;
     }
 
-    fetchItem({ id }).then((d) => setData(d)).catch(() => {});
+    _data()
+      .then(({ fetchItem }) => fetchItem({ id }))
+      .then((d) => setData(d))
+      .catch(() => {});
   }, [loc]);
 
   return html `

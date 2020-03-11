@@ -1,10 +1,15 @@
 import React from "react";
 
 import { Item } from "../components/item";
-import { fetchRandomItems } from "../data/index";
 
 import htm from "htm";
 const html = htm.bind(React.createElement);
+
+// TODO: Abstract this (or a memo fn).
+const _data = () => {
+  _data.prom = _data.prom || import("app_homepage/data/index");
+  return _data.prom;
+};
 
 // ----------------------------------------------------------------------------
 // Shared components
@@ -23,7 +28,10 @@ const Message = ({ msg }) => html `
 const ItemsPage = () => {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    fetchRandomItems().then((d) => setData(d)).catch(() => {});
+    _data()
+      .then(({ fetchRandomItems }) => fetchRandomItems())
+      .then((d) => setData(d))
+      .catch(() => {});
   }, []);
 
   return html `

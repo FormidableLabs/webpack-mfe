@@ -7,6 +7,7 @@ module.exports = config({
   publicPath: "http://127.0.0.1:3002/",
   title: "Item",
   exposes: {
+    "components/item": "./src/components/item",
     "pages/items": "./src/pages/items",
     "pages/item": "./src/pages/item"
   }
