@@ -35,7 +35,7 @@ const Homepage = () => {
         <p style=${{ fontSize: "1.5em", lineHeight: "2em" }}>
           Welcome to the emoji store!
         </p>
-        ${items.map((props) => html `<${Item} ...${props} />`)}
+        ${items.map((props) => html `<${Item} ...${props} key="home-item-${props.id}" />`)}
       </div>
     </${Page}>
   `;
