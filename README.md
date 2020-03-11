@@ -5,7 +5,23 @@ A short experiment to see webpack5 MFE support in action.
 
 ## Overview
 
-We have four "independent" applications with shared components and libraries across them that we simulate within yarn workspaces. Really, these could be viewed as each independent repositories and applications. We run build watchers and localhost serving independently as follows (with relevant `exposes` federated components / code):
+We have four "independent" applications with shared components and libraries across them that we simulate within yarn workspaces. Really, these could be viewed as each independent repositories and applications.
+
+For simplicity all the applications essentially contain the same content and navbar, but differ in that they get code locally from their own app and consume shared code everywhere else via module federation.
+
+For a simple tour, navigate to http://127.0.0.1:3001/ -- this is the homepage application. Looking at the navigation bar, you can see a `HOME (3001)` heading indicating you are in the homepage application server on port 3001. Further down the menu you see a `PAGES` heading with options for:
+
+- `Homepage`: Favorite item links
+- `Items`: A random selection of items
+- `Item (Cat)`: A specific cat
+
+All of the above are served within the 3001 homepage application server (although relevant other application supply code under the hood). Clicking on anything just does history push state and does _not_ cause a real HTTP navigation to a new page.
+
+Continuing down the menu bar to the `APPS` heading with links to all the applications. These links will cause a completely new HTTP navigation to a different application server page (on a different port).
+
+## Architecture
+
+We run build watchers and localhost serving independently as follows (with relevant `exposes` federated components / code):
 
 - `packages/homepage` (`localhost:3001`)
     - `data/index`: REST API data fetcher (for emojis!)
