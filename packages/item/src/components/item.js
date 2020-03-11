@@ -16,10 +16,10 @@ const Loading = ({ id }) => html `
   </div>
 `;
 
-export const Item = ({ id, name, emoji }) => {
+const Item = ({ id, name, emoji }) => {
   const idNum = parseInt(id, 10);
   const location = useLocation();
-  const [item, setData] = React.useState({ id, name, emoji });
+  const [item, setItem] = React.useState({ id, name, emoji });
 
   React.useEffect(() => {
     // Skip if already have data for current element.
@@ -29,7 +29,7 @@ export const Item = ({ id, name, emoji }) => {
 
     _data()
       .then(({ fetchItem }) => fetchItem({ id }))
-      .then((d) => setData(d))
+      .then((d) => setItem(d))
       .catch(() => {});
   }, [item, location]);
 
@@ -57,3 +57,5 @@ export const Item = ({ id, name, emoji }) => {
     </${Link}>
   `;
 };
+
+export default Item;

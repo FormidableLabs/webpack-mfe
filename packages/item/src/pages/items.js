@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Item } from "../components/item";
+import Item from "../components/item";
 
 import htm from "htm";
 const html = htm.bind(React.createElement);

@@ -21,8 +21,8 @@ const html = htm.bind(React.createElement);
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
-const Items = React.lazy(() => import("app_item/pages/items"));
-const Item = React.lazy(() => import("app_item/pages/item"));
+const ItemsPage = React.lazy(() => import("app_item/pages/items"));
+const ItemPage = React.lazy(() => import("app_item/pages/item"));
 
 // ----------------------------------------------------------------------------
 // Constants
@@ -50,8 +50,8 @@ const Layout = ({ app }) => html `
       <${Menu} app="${app} (${location.port})" pages=${PAGE_LINKS} apps=${APP_LINKS} />
       <${Switch}>
         <${Route} exact=${true} path="/" component=${Homepage} />
-        <${Route} exact=${true} path="/item/" component=${Items} />
-        <${Route} exact=${true} path="/item/:id" component=${Item} />
+        <${Route} exact=${true} path="/item/" component=${ItemsPage} />
+        <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
       </${Switch}>
     </${Router}>
   </div>
