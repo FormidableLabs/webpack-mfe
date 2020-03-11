@@ -22,13 +22,12 @@ const Homepage = () => html `
   </${Page}>
 `;
 
-
-const Item = ({ match: { params: { id = "" } } }) => html `
+const Item = ({ match: { params: { id } } }) => html `
   <${Page}
     name="Item"
   >
     <div>
-      ${id ? html `You have chosen item <code>${id}</code>` : "Welcome to the item page."}
+      ${id ? `You have chosen item ${id}` : "Welcome to the item page."}
     </div>
   </${Page}>
 `;
