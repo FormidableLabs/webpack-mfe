@@ -2,10 +2,11 @@
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 // Application constants to share across all builds.
-const APPS = {
+const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   homepage: "http://127.0.0.1:3001",
   item: "http://127.0.0.1:3002"
   // TODO: Other apps
@@ -28,6 +29,9 @@ module.exports = ({ app, publicPath, title, exposes = {} }) => ({
     minimize: false
   },
   plugins: [
+    new DefinePlugin({
+      "process.env.APPS": JSON.stringify(APPS)
+    }),
     // - **Naming**: The `name` property will become a `var` so needs to be JS-compliant.
     new ModuleFederationPlugin({
       name: `app_${app}`,
