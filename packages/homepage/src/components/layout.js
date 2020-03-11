@@ -10,7 +10,7 @@ import { Menu } from "./menu";
 import Homepage from "../pages/index";
 
 import htm from "htm";
-const Item = React.lazy(() => import("app_item/item"));
+const Item = React.lazy(() => import("app_item/pages/index"));
 const html = htm.bind(React.createElement);
 
 const ITEMS = [

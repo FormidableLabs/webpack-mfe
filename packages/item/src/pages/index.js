@@ -3,7 +3,7 @@ import React from "react";
 import htm from "htm";
 const html = htm.bind(React.createElement);
 
-const Page = React.lazy(() => import("app_homepage/page"));
+const Page = React.lazy(() => import("app_homepage/components/page"));
 
 const Item = ({ match: { params: { id } } }) => html `
   <${Page}
