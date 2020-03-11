@@ -31,7 +31,7 @@ const Item = React.lazy(() => import("app_item/pages/item"));
 const PAGE_LINKS = [
   { name: "Homepage", to: "/" },
   { name: "Items", to: "/item" },
-  { name: "Item 123", to: "/item/123" }
+  { name: "Item (Cat)", to: "/item/102" }
 ];
 
 // TODO: Inject this from where we define it for webpack.
