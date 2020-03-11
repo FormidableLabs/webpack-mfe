@@ -20,13 +20,13 @@ const Frame = ({ children }) => html `
   </div>
 `;
 
-const Loading = ({ id }) => html `
-  <div style=${{ textAlign: "center" }} className="pure-u-1-3">
-    <em style=${{ fontSize: "1.5em", lineHeight: "2em" }}>Loading item ${id}...</em>
+const Message = ({ msg }) => html `
+  <div style=${{ textAlign: "center" }} className="pure-u-1-1">
+    <p style=${{ fontSize: "1.5em", lineHeight: "2em" }}>${msg}</p>
   </div>
 `;
 
-const ItemsPage = ({ match: { params: { id } } }) => {
+const ItemsPage = () => {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
     fetchRandomItems().then((d) => setData(d)).catch(() => {});
@@ -37,9 +37,8 @@ const ItemsPage = ({ match: { params: { id } } }) => {
       name="Items"
     >
       <${Frame}>
-        ${!data
-    ? html `<${Loading} id="${id}" />`
-    : data.map((item) => html `<${Item} ...${item} key="item-${item.id}" />`)}
+        <${Message} msg="${data ? "A random assortment of emojis!" : "Loading items.."}" />
+        ${(data || []).map((item) => html `<${Item} ...${item} key="item-${item.id}" />`)}
       </${Frame}>
     </${Page}>
   `;
