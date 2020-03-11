@@ -14,12 +14,6 @@ const Page = React.lazy(() => import("app_homepage/components/page"));
 // ----------------------------------------------------------------------------
 // Components
 // ----------------------------------------------------------------------------
-const Frame = ({ children }) => html `
-  <div className="pure-g">
-    ${children}
-  </div>
-`;
-
 const Message = ({ msg }) => html `
   <div style=${{ textAlign: "center" }} className="pure-u-1-1">
     <p style=${{ fontSize: "1.5em", lineHeight: "2em" }}>${msg}</p>
@@ -36,10 +30,8 @@ const ItemsPage = () => {
     <${Page}
       name="Items"
     >
-      <${Frame}>
-        <${Message} msg="${data ? "A random assortment of emojis!" : "Loading items.."}" />
-        ${(data || []).map((item) => html `<${Item} ...${item} key="item-${item.id}" />`)}
-      </${Frame}>
+      <${Message} msg="${data ? "A random assortment of emojis!" : "Loading items.."}" />
+      ${(data || []).map((item) => html `<${Item} ...${item} key="item-${item.id}" />`)}
     </${Page}>
   `;
 };

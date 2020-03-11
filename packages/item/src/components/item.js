@@ -6,7 +6,10 @@ const html = htm.bind(React.createElement);
 
 export const Item = ({ id, name, emoji }) => html `
     <${Link}
-      to="/item/${id}"
+      to=${{
+    pathname: `/item/${id}`,
+    state: { item: { id, name, emoji } }
+  }}
       style=${{
     color: "inherit",
     textDecoration: "none",

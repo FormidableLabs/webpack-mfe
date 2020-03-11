@@ -8,7 +8,9 @@ const Page = ({ name, children }) => html `
     <div className="header">
       <h1>${name}</h1>
     </div>
-    <div className="content">${children}</div>
+    <div className="content pure-g">
+      ${children}
+    </div>
   </div>
 `;
 

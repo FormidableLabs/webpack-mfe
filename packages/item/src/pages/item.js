@@ -14,23 +14,20 @@ const Page = React.lazy(() => import("app_homepage/components/page"));
 // ----------------------------------------------------------------------------
 // Components
 // ----------------------------------------------------------------------------
-const Frame = ({ children }) => html `
-  <div className="pure-g">
-    <div className="pure-u-1-3"></div>
-    ${children}
-    <div className="pure-u-1-3"></div>
-  </div>
-`;
-
 const Loading = ({ id }) => html `
   <div style=${{ textAlign: "center" }} className="pure-u-1-3">
     <em style=${{ fontSize: "1.5em", lineHeight: "2em" }}>Loading item ${id}...</em>
   </div>
 `;
 
-const ItemPage = ({ match: { params: { id } } }) => {
-  const [data, setData] = React.useState(null);
+const ItemPage = ({ location, match }) => {
+  const item = ((location || {}).state || {}).item;
+  const id = ((match || {}).params || {}).id;
+
+  const [data, setData] = React.useState(item);
   React.useEffect(() => {
+    // Skip if already have data.
+    if (data) { return; }
     fetchItem({ id }).then((d) => setData(d)).catch(() => {});
   }, []);
 
@@ -38,9 +35,9 @@ const ItemPage = ({ match: { params: { id } } }) => {
     <${Page}
       name="Item"
     >
-      <${Frame}>
-        ${data ? html `<${Item} ...${data} />` : html `<${Loading} id="${id}" />`}
-      </${Frame}>
+      <div className="pure-u-1-3"></div>
+      ${data ? html `<${Item} ...${data} />` : html `<${Loading} id="${id}" />`}
+      <div className="pure-u-1-3"></div>
     </${Page}>
   `;
 };
