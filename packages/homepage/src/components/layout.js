@@ -21,13 +21,14 @@ const html = htm.bind(React.createElement);
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
-const Item = React.lazy(() => import("app_item/pages/index"));
+const Items = React.lazy(() => import("app_item/pages/items"));
+const Item = React.lazy(() => import("app_item/pages/item"));
 
 // ----------------------------------------------------------------------------
 // Constants
 // ----------------------------------------------------------------------------
 // TODO: Move this somewhere else?
-const PAGE_ITEMS = [
+const PAGE_LINKS = [
   { name: "Homepage", to: "/" },
   { name: "Items", to: "/item" },
   { name: "Item 123", to: "/item/123" }
@@ -38,7 +39,7 @@ const APPS = process.env.APPS;
 if (!APPS) {
   throw new Error("APPS environment variable required.");
 }
-const APP_ITEMS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
+const APP_LINKS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 
 // ----------------------------------------------------------------------------
 // Component
@@ -46,10 +47,10 @@ const APP_ITEMS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 const Layout = ({ app }) => html `
   <div id="layout">
     <${Router}>
-      <${Menu} app="${app} (${location.port})" pages=${PAGE_ITEMS} apps=${APP_ITEMS} />
+      <${Menu} app="${app} (${location.port})" pages=${PAGE_LINKS} apps=${APP_LINKS} />
       <${Switch}>
         <${Route} exact path="/" component=${Homepage} />
-        <${Route} exact path="/item/" component=${Item} />
+        <${Route} exact path="/item/" component=${Items} />
         <${Route} path="/item/:id" component=${Item} />
       </${Switch}>
     </${Router}>
