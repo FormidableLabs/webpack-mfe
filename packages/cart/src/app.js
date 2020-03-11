@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import htm from "htm";
+
+const Layout = React.lazy(() => import("app_homepage/components/layout"));
 const html = htm.bind(React.createElement);
 
-const App = () => html `<h1>Cart</h1>`;
+const App = (props) => html `
+  <${React.Suspense} fallback=" ">
+    <${Layout} ...${props} />
+  </${React.Suspense}>
+`;
 
 ReactDOM.render(
-  html `<${App} />`,
+  html `<${App} app="Cart" />`,
   document.getElementById("root")
 );
