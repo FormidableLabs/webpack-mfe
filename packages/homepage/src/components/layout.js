@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { Menu } from "./menu";
-import { Page } from "./page";
+import Page from "./page";
 
 import htm from "htm";
 const html = htm.bind(React.createElement);
@@ -39,7 +39,7 @@ const ITEMS = [
   { name: "Item 123", to: "/item/123" }
 ];
 
-export const Layout = ({ app = "Ecom Site" }) => html `
+const Layout = ({ app = "Ecom Site" }) => html `
   <div id="layout">
     <${Router}>
       <${Menu} app=${app} items=${ITEMS} />
@@ -51,4 +51,6 @@ export const Layout = ({ app = "Ecom Site" }) => html `
     </${Router}>
   </div>
 `;
+
+export default Layout;
 

@@ -1,12 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
-
-const App = () => html `<h1>Item</h1>`;
-
-ReactDOM.render(
-  html `<${App} />`,
-  document.getElementById("root")
-);
+// **NOTE**: Need a dynamic import to get things like overrideables (shared,
+// etc.) available to core application.
+// eslint-disable-next-line no-unused-expressions
+import("./app");

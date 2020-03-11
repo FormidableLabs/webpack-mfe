@@ -31,13 +31,12 @@ module.exports = ({ app, publicPath, title, exposes = {} }) => ({
       name: `app_${app}`,
       library: { type: "var", name: `app_${app}` },
       filename: "remote-entry.js",
-      remotes: {},
-      exposes: {},
       // TODO HERE: http://127.0.0.1:3001/remote-entry.js is generated but nothing else works.
       //
       // TODO: USE
       remotes: {
-        app_item: "app_item"
+        app_item: "app_item",
+        app_homepage: "app_homepage"
       },
       exposes,
       // TODO: USE
