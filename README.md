@@ -44,8 +44,10 @@ Articles:
 
 MFE / Infrastructure:
 
-- To use anything shared or overrideable it appears the entry point needs a dynamic `import()`.
+- To use anything shared or overrideable it appears the entire entry point needs to be wrapped in a dynamic `import()`.
+- To import a component from another MFE, use something like `const Page = React.lazy(() => import("app_homepage/components/page"));`
 
 This Demo:
 
 - To keep this demo focused on the infrastructure, we've made shortcuts of having a minimal build (no `babel`, instead using `htm`), vanilla-ish React (`react` + `react-router-dom`), Pure CSS for styling, and no SSR, etc.
+- Although a lot of the components need `React.Suspense`, there is no fallback UI provided.
