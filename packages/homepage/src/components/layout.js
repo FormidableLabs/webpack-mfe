@@ -1,3 +1,9 @@
+/**
+ * Common layout for all apps.
+ *
+ * **Note**: A lot of this would normally be split and organized
+ */
+
 import React from "react";
 
 import {
@@ -10,9 +16,17 @@ import { Menu } from "./menu";
 import Homepage from "../pages/index";
 
 import htm from "htm";
-const Item = React.lazy(() => import("app_item/pages/index"));
 const html = htm.bind(React.createElement);
 
+// ----------------------------------------------------------------------------
+// Shared components
+// ----------------------------------------------------------------------------
+const Item = React.lazy(() => import("app_item/pages/index"));
+
+// ----------------------------------------------------------------------------
+// Constants
+// ----------------------------------------------------------------------------
+// TODO: Move this somewhere else?
 const PAGE_ITEMS = [
   { name: "Homepage", to: "/" },
   { name: "Items", to: "/item" },
@@ -26,6 +40,9 @@ if (!APPS) {
 }
 const APP_ITEMS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 
+// ----------------------------------------------------------------------------
+// Component
+// ----------------------------------------------------------------------------
 const Layout = ({ app }) => html `
   <div id="layout">
     <${Router}>
