@@ -9,9 +9,8 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   homepage: "http://127.0.0.1:3001",
   item: "http://127.0.0.1:3002",
-  cart: "http://127.0.0.1:3003"
-  // TODO: Other apps
-  // checkout: "http://127.0.0.1:3004",
+  cart: "http://127.0.0.1:3003",
+  checkout: "http://127.0.0.1:3004"
 };
 
 module.exports = ({ app, title, exposes = {} }) => ({

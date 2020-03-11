@@ -16,8 +16,7 @@
     "watch": "cd packages/${PKG} && yarn watch",
     "serve": "cd packages/${PKG} && yarn serve",
     "watch-and-serve": "builder concurrent watch serve",
-    "TODO_start": "builder envs -l info watch-and-serve '[{\"PKG\":\"homepage\"},{\"PKG\":\"item\"},{\"PKG\":\"cart\"},{\"PKG\":\"checkout\"}]'"
-    , "start": "builder envs -l info watch-and-serve '[{\"PKG\":\"homepage\"},{\"PKG\":\"item\"},{\"PKG\":\"cart\"}]'"
+    "start": "builder envs -l info watch-and-serve '[{\"PKG\":\"homepage\"},{\"PKG\":\"item\"},{\"PKG\":\"cart\"},{\"PKG\":\"checkout\"}]'"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

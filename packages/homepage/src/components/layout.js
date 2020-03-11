@@ -24,6 +24,8 @@ const html = htm.bind(React.createElement);
 const ItemsPage = React.lazy(() => import("app_item/pages/items"));
 const ItemPage = React.lazy(() => import("app_item/pages/item"));
 const CartPage = React.lazy(() => import("app_cart/pages/cart"));
+const CheckoutPage = React.lazy(() => import("app_checkout/pages/checkout"));
+const ThankYouPagePage = React.lazy(() => import("app_checkout/pages/thank-you"));
 
 // ----------------------------------------------------------------------------
 // Constants
@@ -33,7 +35,8 @@ const PAGE_LINKS = [
   { name: "Homepage", to: "/" },
   { name: "Items", to: "/item" },
   { name: "Item (Cat)", to: "/item/102" },
-  { name: "Cart", to: "/cart" }
+  { name: "Cart", to: "/cart" },
+  { name: "Checkout", to: "/checkout" }
 ];
 
 // TODO: Inject this from where we define it for webpack.
@@ -55,6 +58,8 @@ const Layout = ({ app }) => html `
         <${Route} exact=${true} path="/item/" component=${ItemsPage} />
         <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
         <${Route} exact=${true} path="/cart" component=${CartPage} />
+        <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
+        <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPagePage} />
       </${Switch}>
     </${Router}>
   </div>

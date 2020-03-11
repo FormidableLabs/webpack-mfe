@@ -7,6 +7,7 @@ const html = htm.bind(React.createElement);
 // Shared components
 // ----------------------------------------------------------------------------
 const Page = React.lazy(() => import("app_homepage/components/page"));
+const CheckoutButton = React.lazy(() => import("app_checkout/components/checkout-button"));
 
 // ----------------------------------------------------------------------------
 // Components
@@ -41,12 +42,18 @@ const CartPage = () => html `
               <td>$${data.price}.00</td>
             </tr>
           `)}
-          <tr key="cart-item-summary" style=${{ borderTop: "1px solid #cbcbcb" }}>
+          <tr key="cart-summary" style=${{ borderTop: "1px solid #cbcbcb" }}>
             <td colSpan="3">Total</td>
             <td>$${total}.00</td>
           </tr>
+          <tr key="cart-checkout" style=${{ borderTop: "1px solid #cbcbcb" }}>
+            <td colSpan="4" style=${{ textAlign: "center" }}>
+              <${CheckoutButton} />
+            </td>
+          </tr>
         </tbody>
         </table>
+
       </div>
       <div className="pure-u-1-3"></div>
     </${Page}>
