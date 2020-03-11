@@ -13,6 +13,12 @@ We have five "independent" applications with shared components and libraries acr
 - `packages/cart` (`localhost:3004`)
 - `packages/checkout` (`localhost:3005`)
 
+For convenience, these apps all share:
+
+- `public/index.html`: Common HTML template
+- `webpack.config.js`: Webpack config wrapper
+- `serve.json`: A static localdev server configuration
+
 ## Development
 
 You can run build and watches for all five at the same time with root project helper commands:
@@ -36,8 +42,10 @@ Articles:
 
 ## Notes
 
-- To use anything shared or overridable it appears the entry point needs a dynamic `import()`.
+MFE / Infrastructure:
 
-## Tasks
+- To use anything shared or overrideable it appears the entry point needs a dynamic `import()`.
 
-- [ ] Abstract `html` binding to a utility location.
+This Demo:
+
+- To keep this demo focused on the infrastructure, we've made shortcuts of having a minimal build (no `babel`, instead using `htm`), vanilla-ish React (`react` + `react-router-dom`), and no SSR, etc.
