@@ -32,13 +32,9 @@ module.exports = ({ app, publicPath, title, exposes = {} }) => ({
     new ModuleFederationPlugin({
       name: `app_${app}`,
       library: { type: "var", name: `app_${app}` },
-      filename: "remote-entry.js",
-      remotes: {
-        /* eslint-disable camelcase */
-        app_item: "app_item",
-        app_homepage: "app_homepage"
-        /* eslint-enable camelcase */
-      },
+      filename: `${app}-remote.js`,
+      // Form: `{ app_homepage: "app_homepage" }`
+      remotes: Object.fromEntries(Object.keys(APPS).map((name) => [`app_${name}`, `app_${name}`])),
       exposes,
       shared: ["react", "react-dom", "react-router-dom"]
     }),
@@ -51,8 +47,9 @@ module.exports = ({ app, publicPath, title, exposes = {} }) => ({
         compilation,
         webpackConfig: compilation.options,
         htmlWebpackPlugin: { tags: assetTags, files: assets, options },
-        // Inject remotes in <script> tags before main JS.
-        remotes: Object.values(APPS).map((base) => `${base}remote-entry.js`)
+        // Inject remotes in <script> tags before main JS. E.g.
+        // `<script src="http://127.0.0.1:3001/homepage-remote.js"></script>`
+        remotes: Object.entries(APPS).map(([name, base]) => `${base}/${name}-remote.js`)
       })
     })
   ]
