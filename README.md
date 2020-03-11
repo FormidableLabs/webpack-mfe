@@ -56,6 +56,14 @@ $ yarn start
 
 Navigate to: http://localhost:3001/ for the entry in to the home page, or independently to any of the other application entry URLs.
 
+## Production
+
+To build everything for deployment:
+
+```sh
+$ yarn clean && yarn build
+```
+
 ## Resources
 
 Demos:

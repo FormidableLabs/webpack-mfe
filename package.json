@@ -10,13 +10,17 @@
     "packages/*"
   ],
   "scripts": {
+    "_envs": "echo [{\\\"PKG\\\":\\\"homepage\\\"},{\\\"PKG\\\":\\\"item\\\"},{\\\"PKG\\\":\\\"cart\\\"},{\\\"PKG\\\":\\\"checkout\\\"}]",
     "lint": "eslint .",
     "check": "yarn lint",
     "check-ci": "yarn lint",
-    "watch": "cd packages/${PKG} && yarn watch",
-    "serve": "cd packages/${PKG} && yarn serve",
-    "watch-and-serve": "builder concurrent watch serve",
-    "start": "builder envs -l info watch-and-serve '[{\"PKG\":\"homepage\"},{\"PKG\":\"item\"},{\"PKG\":\"cart\"},{\"PKG\":\"checkout\"}]'"
+    "build:pkg": "cd packages/${PKG} && yarn build",
+    "watch:pkg": "cd packages/${PKG} && yarn watch",
+    "serve:pkg": "cd packages/${PKG} && yarn serve",
+    "clean": "rm -rf packages/*/dist",
+    "build": "builder envs -l info build:pkg $(yarn -s _envs)",
+    "watch-and-serve:pkg": "builder concurrent watch:pkg serve:pkg",
+    "start": "builder envs -l info watch-and-serve:pkg $(yarn -s _envs)"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
