@@ -22,3 +22,6 @@ export const fetchItem = ({ id }) => _fetchEmoji({ query: `emojis/${id}` })
 
     return data.results[0];
   });
+
+export const fetchRandomItems = () => _fetchEmoji({ query: "random?limit=9" })
+  .then((data) => data.results);

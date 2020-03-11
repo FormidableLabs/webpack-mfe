@@ -1,9 +1,9 @@
 import React from "react";
 
-import htm from "htm";
-
 import { Item } from "../components/item";
 import { fetchItem } from "../data/index";
+
+import htm from "htm";
 const html = htm.bind(React.createElement);
 
 // ----------------------------------------------------------------------------
@@ -31,8 +31,7 @@ const Loading = ({ id }) => html `
 const ItemPage = ({ match: { params: { id } } }) => {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    // eslint-disable-next-line promise/catch-or-return
-    fetchItem({ id }).then((emoji) => setData(emoji));
+    fetchItem({ id }).then((d) => setData(d)).catch(() => {});
   }, []);
 
   return html `
