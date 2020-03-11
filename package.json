@@ -20,6 +20,7 @@
     "clean": "rm -rf packages/*/dist",
     "build": "builder envs -l info build:pkg $(yarn -s _envs)",
     "watch-and-serve:pkg": "builder concurrent watch:pkg serve:pkg",
+    "serve": "builder envs -l info serve:pkg $(yarn -s _envs)",
     "start": "builder envs -l info watch-and-serve:pkg $(yarn -s _envs)"
   },
   "devDependencies": {

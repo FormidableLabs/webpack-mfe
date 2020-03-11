@@ -13,6 +13,20 @@ const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   checkout: "http://127.0.0.1:3004"
 };
 
+const htmlPluginConfig = {
+  template: path.resolve(__dirname, "public/index.html"),
+  chunks: ["main"],
+  // eslint-disable-next-line max-params
+  templateParameters: (compilation, assets, assetTags, options) => ({
+    compilation,
+    webpackConfig: compilation.options,
+    htmlWebpackPlugin: { tags: assetTags, files: assets, options },
+    // Inject remotes in <script> tags before main JS. E.g.
+    // `<script src="http://127.0.0.1:3001/homepage-remote.js"></script>`
+    remotes: Object.entries(APPS).map(([name, base]) => `${base}/${name}-remote.js`)
+  })
+};
+
 module.exports = ({ app, title, exposes = {} }) => ({
   entry: "./src/index.js",
   cache: false,
@@ -41,18 +55,15 @@ module.exports = ({ app, title, exposes = {} }) => ({
       shared: ["react", "react-dom", "react-router-dom"]
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "public/index.html"),
+      ...htmlPluginConfig,
+      title
+    }),
+    new HtmlWebpackPlugin({
+      ...htmlPluginConfig,
       title,
-      chunks: ["main"],
-      // eslint-disable-next-line max-params
-      templateParameters: (compilation, assets, assetTags, options) => ({
-        compilation,
-        webpackConfig: compilation.options,
-        htmlWebpackPlugin: { tags: assetTags, files: assets, options },
-        // Inject remotes in <script> tags before main JS. E.g.
-        // `<script src="http://127.0.0.1:3001/homepage-remote.js"></script>`
-        remotes: Object.entries(APPS).map(([name, base]) => `${base}/${name}-remote.js`)
-      })
+      // Add 200 for Surge routing
+      // https://surge.sh/help/adding-a-200-page-for-client-side-routing
+      filename: "200.html"
     })
   ]
 });
