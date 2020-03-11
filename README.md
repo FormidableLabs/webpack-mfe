@@ -23,7 +23,7 @@ $ yarn start
 
 Navigate to: http://localhost:3001/ for the entry in to the home page, or independently to any of the other application entry URLs.
 
-# Resources
+## Resources
 
 Demos:
 
@@ -33,3 +33,11 @@ Articles:
 
 - https://dev.to/marais/webpack-5-and-module-federation-4j1i
 - https://itnext.io/webpack-5-module-federation-a-game-changer-to-javascript-architecture-bcdd30e02669
+
+## Notes
+
+- To use anything shared or overridable it appears the entry point needs a dynamic `import()`.
+
+## Tasks
+
+- [ ] Abstract `html` binding to a utility location.

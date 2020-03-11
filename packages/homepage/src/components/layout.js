@@ -7,30 +7,11 @@ import {
 } from "react-router-dom";
 
 import { Menu } from "./menu";
-import Page from "./page";
+import Homepage from "../pages/index";
 
 import htm from "htm";
+const Item = React.lazy(() => import("app_item/item"));
 const html = htm.bind(React.createElement);
-
-const Homepage = () => html `
-  <${Page}
-    name="Homepage"
-  >
-    <div>
-      This is the homepage.
-    </div>
-  </${Page}>
-`;
-
-const Item = ({ match: { params: { id } } }) => html `
-  <${Page}
-    name="Item"
-  >
-    <div>
-      ${id ? `You have chosen item ${id}` : "Welcome to the item page."}
-    </div>
-  </${Page}>
-`;
 
 const ITEMS = [
   { name: "Homepage", to: "/" },
@@ -51,5 +32,10 @@ const Layout = ({ app = "Ecom Site" }) => html `
   </div>
 `;
 
-export default Layout;
+const LazyLayout = (props) => html `
+  <${React.Suspense} fallback=" ">
+    <${Layout} ...${props} />
+  </${React.Suspense}>
+`;
 
+export default LazyLayout;
