@@ -8,19 +8,19 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 // Application constants to share across all builds.
 const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   homepage: "http://127.0.0.1:3001",
-  item: "http://127.0.0.1:3002"
+  item: "http://127.0.0.1:3002",
+  cart: "http://127.0.0.1:3003"
   // TODO: Other apps
-  // cart: "http://127.0.0.1:3003",
   // checkout: "http://127.0.0.1:3004",
 };
 
-module.exports = ({ app, publicPath, title, exposes = {} }) => ({
+module.exports = ({ app, title, exposes = {} }) => ({
   entry: "./src/index.js",
   cache: false,
   output: {
     path: path.resolve("dist"),
     pathinfo: true,
-    publicPath,
+    publicPath: `${APPS[app]}/`,
     filename: "[name].js"
   },
   devtool: false,

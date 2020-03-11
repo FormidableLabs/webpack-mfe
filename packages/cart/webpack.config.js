@@ -3,5 +3,10 @@
 const config = require("../../webpack.config");
 
 module.exports = config({
-  title: "Cart"
+  app: "cart",
+  title: "Cart",
+  exposes: {
+    "components/add-to-cart": "./src/components/add-to-cart",
+    "pages/cart": "./src/pages/cart"
+  }
 });
