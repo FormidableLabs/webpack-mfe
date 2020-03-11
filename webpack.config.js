@@ -10,9 +10,8 @@ const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   homepage: "http://127.0.0.1:3001",
   item: "http://127.0.0.1:3002"
   // TODO: Other apps
-  // search: "http://127.0.0.1:3003",
-  // cart: "http://127.0.0.1:3004",
-  // checkout: "http://127.0.0.1:3005",
+  // cart: "http://127.0.0.1:3003",
+  // checkout: "http://127.0.0.1:3004",
 };
 
 module.exports = ({ app, publicPath, title, exposes = {} }) => ({

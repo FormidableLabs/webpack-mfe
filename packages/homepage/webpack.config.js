@@ -9,7 +9,6 @@ module.exports = config({
   exposes: {
     "data/index": "./src/data/index",
     "components/layout": "./src/components/layout",
-    "components/menu": "./src/components/menu",
     "components/page": "./src/components/page"
   }
 });
