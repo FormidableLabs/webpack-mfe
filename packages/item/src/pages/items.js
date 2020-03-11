@@ -27,9 +27,7 @@ const ItemsPage = () => {
   }, []);
 
   return html `
-    <${Page}
-      name="Items"
-    >
+    <${Page} name="Items">
       <${Message} msg="${data ? "A random assortment of emojis!" : "Loading items.."}" />
       ${(data || []).map((item) => html `<${Item} ...${item} key="item-${item.id}" />`)}
     </${Page}>

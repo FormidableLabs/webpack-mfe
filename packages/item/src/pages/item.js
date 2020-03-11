@@ -32,9 +32,7 @@ const ItemPage = ({ location, match }) => {
   }, []);
 
   return html `
-    <${Page}
-      name="Item"
-    >
+    <${Page} name="Item">
       <div className="pure-u-1-3"></div>
       ${data ? html `<${Item} ...${data} />` : html `<${Loading} id="${id}" />`}
       <div className="pure-u-1-3"></div>
