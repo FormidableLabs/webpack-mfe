@@ -9,7 +9,14 @@ const _data = () => {
   _data.prom = _data.prom || import("app_homepage/data/index");
   return _data.prom;
 };
+// ----------------------------------------------------------------------------
+// Shared components
+// ----------------------------------------------------------------------------
+const AddToCart = React.lazy(() => import("app_cart/components/add-to-cart"));
 
+// ----------------------------------------------------------------------------
+// Components
+// ----------------------------------------------------------------------------
 const Loading = ({ id }) => html `
   <div style=${{ textAlign: "center" }} className="pure-u-1-3">
     <em style=${{ fontSize: "1.5em", lineHeight: "2em" }}>Loading item ${id}...</em>
@@ -39,22 +46,19 @@ const Item = ({ id, name, emoji }) => {
   }
 
   return html `
-    <${Link}
-      to=${{
-    pathname: `/item/${item.id}`,
-    state: { item }
-  }}
-      style=${{
-    color: "inherit",
-    textDecoration: "none",
-    textAlign: "center",
-    backgroundColor: "#eeeeee"
-  }}
+    <div
       className="pure-u-1-3"
+      style=${{ textAlign: "center", backgroundColor: "#eeeeee", paddingBottom: "10px" }}
     >
-      <p style=${{ fontSize: "10em" }}>${item.emoji}</p>
-      <p style=${{ fontSize: "2em" }}>${item.name}</p>
-    </${Link}>
+      <${Link}
+        to=${{ pathname: `/item/${item.id}`, state: { item } }}
+        style=${{ color: "inherit", textDecoration: "none" }}
+      >
+        <p style=${{ fontSize: "10em" }}>${item.emoji}</p>
+        <p style=${{ fontSize: "2em" }}>${item.name}</p>
+      </${Link}>
+      <${AddToCart} />
+    </div>
   `;
 };
 
