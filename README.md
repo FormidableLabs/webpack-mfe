@@ -48,4 +48,4 @@ MFE / Infrastructure:
 
 This Demo:
 
-- To keep this demo focused on the infrastructure, we've made shortcuts of having a minimal build (no `babel`, instead using `htm`), vanilla-ish React (`react` + `react-router-dom`), and no SSR, etc.
+- To keep this demo focused on the infrastructure, we've made shortcuts of having a minimal build (no `babel`, instead using `htm`), vanilla-ish React (`react` + `react-router-dom`), Pure CSS for styling, and no SSR, etc.
