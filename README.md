@@ -32,7 +32,12 @@ We run build watchers and localhost serving independently as follows (with relev
     - `pages/items`: Items landing page (random items)
     - `pages/item`: Single item page
 - `packages/cart` (`localhost:3003`)
+    - `components/add-to-cart`: Add to cart button for items.
+    - `pages/cart`: Cart page
 - `packages/checkout` (`localhost:3004`)
+    - `components/checkout-button`: Checkout button for cart
+    - `pages/checkout`: Checkout page
+    - `pages/thank-you`: Thank you page for after a purchase
 
 Each of the applications share the following vendor code:
 
