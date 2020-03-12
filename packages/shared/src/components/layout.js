@@ -45,7 +45,6 @@ let CartPage;
 let CheckoutPage;
 let ThankYouPage;
 const Layout = ({ app, pages = {} }) => {
-  console.log("TODO HERE", { app, pages });
   // Lazy imports, using provided pages directly first.
   // Each app container is responsible for injecting direct pages.
   Homepage = Homepage || pages.Homepage || React.lazy(eagerImport(() => import("app_homepage/pages/homepage")));

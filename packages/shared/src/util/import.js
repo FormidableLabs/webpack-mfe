@@ -6,12 +6,7 @@
 //
 // **Note**: Cannot use with circular dependencies!
 export const eagerImport = (importFn) => {
-  const prom = importFn().then((mod) => {
-    // TODO REMOVE DEBUG.
-    console.log("eagerImport", {
-      fn: importFn.toString().match(/\/\*\! (app_.*?) \*\//)[1]
-    });
-    return mod;
-  });
+  // Call the promise without waiting on it.
+  const prom = importFn();
   return () => prom;
 };
