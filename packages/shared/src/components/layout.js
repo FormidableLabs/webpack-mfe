@@ -13,7 +13,7 @@ import {
 } from "react-router-dom";
 
 import { Menu } from "./menu";
-import { html } from "../index";
+import { html } from "../util/html";
 
 // ----------------------------------------------------------------------------
 // Shared components
