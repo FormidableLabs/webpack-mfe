@@ -11,7 +11,6 @@
     "serve": "serve -c ../../../serve.json -l 3001 dist"
   },
   "dependencies": {
-    "htm": "^3.0.3",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
