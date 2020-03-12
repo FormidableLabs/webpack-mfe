@@ -24,7 +24,7 @@ Continuing down the menu bar to the `APPS` heading with links to all the applica
 We run build watchers and localhost serving independently as follows (with relevant `exposes` federated components / code):
 
 - `packages/homepage` (`localhost:3001`)
-    - `pages/homeage`: Some favorite items on a lander page
+    - `pages/homepage`: Some favorite items on a lander page
 - `packages/item` (`localhost:3002`)
     - `components/item`: A single item (with internal data fetching)
     - `pages/items`: Items landing page (random items)
