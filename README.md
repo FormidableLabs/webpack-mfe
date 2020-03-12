@@ -63,11 +63,18 @@ Navigate to: http://localhost:3001/ for the entry in to the home page, or indepe
 
 ## Production
 
-To build everything for deployment:
+To build everything for deployment to surge:
 
 ```sh
-$ yarn clean && yarn build
+$ yarn clean && PROD=true yarn build
 ```
+
+We have things automated in surge with special environment variables. This deploys to PR environments as: `emojistore-staging-${PR_NUMBER}-${APP}.surge.sh`. Production deploys the federated applications as follows:
+
+- [emojistore-homepage.surge.sh](https://emojistore-homepage.surge.sh/)
+- [emojistore-item.surge.sh](https://emojistore-item.surge.sh/)
+- [emojistore-cart.surge.sh](https://emojistore-cart.surge.sh/)
+- [emojistore-checkout.surge.sh](https://emojistore-checkout.surge.sh/)
 
 ## Resources
 
