@@ -28,7 +28,7 @@ const PAGE_LINKS = [
   { name: "Checkout", to: "/checkout" }
 ];
 
-// TODO: Inject this from where we define it for webpack.
+// TODO(SSR): Inject this from where we define it for webpack.
 const APPS = process.env.APPS;
 if (!APPS) {
   throw new Error("APPS environment variable required.");
@@ -36,8 +36,11 @@ if (!APPS) {
 const APP_LINKS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 
 // ----------------------------------------------------------------------------
-// Component
+// Lazy, shared components
 // ----------------------------------------------------------------------------
+// These imports are what we'd normally just push in a `React.lazy()`. We wrap
+// them with `React.lazy(eagerImport())` to begin loading them in the background
+// before actual use.
 const PAGE_IMPORTS = {
   Homepage: () => import("app_homepage/pages/homepage"),
   ItemsPage: () => import("app_item/pages/items"),
@@ -49,7 +52,6 @@ const PAGE_IMPORTS = {
 // Since apps provide their own page components, lazily (+ eagerly) populate
 // a global cache of pages to use.
 const PAGE_CACHE = Object.fromEntries(Object.keys(PAGE_IMPORTS).map((name) => [name, null]));
-console.log("TODO HERE 001", { PAGE_CACHE });
 
 const getPages = (pages) => {
   Object.keys(PAGE_CACHE).forEach((name) => {
@@ -58,11 +60,12 @@ const getPages = (pages) => {
     }
   });
 
-  console.log("TODO HERE 002", { PAGE_CACHE });
-
   return PAGE_CACHE;
 };
 
+// ----------------------------------------------------------------------------
+// Component
+// ----------------------------------------------------------------------------
 const Layout = ({ app, pages = {} }) => {
   // Lazy imports, using provided pages directly first.
   // Each app container is responsible for injecting direct pages.
