@@ -24,9 +24,7 @@ Continuing down the menu bar to the `APPS` heading with links to all the applica
 We run build watchers and localhost serving independently as follows (with relevant `exposes` federated components / code):
 
 - `packages/homepage` (`localhost:3001`)
-    - `data/index`: REST API data fetcher (for emojis!)
-    - `components/layout`: Common application shell (page layout)s
-    - `components/page`: Content component
+    - `pages/homeage`: Some favorite items on a lander page
 - `packages/item` (`localhost:3002`)
     - `components/item`: A single item (with internal data fetching)
     - `pages/items`: Items landing page (random items)
@@ -38,14 +36,19 @@ We run build watchers and localhost serving independently as follows (with relev
     - `components/checkout-button`: Checkout button for cart
     - `pages/checkout`: Checkout page
     - `pages/thank-you`: Thank you page for after a purchase
+- `packages/shared`: Shared dependencies for the other applications. Simulates a common base repository.
+    - `data/index`: REST API data fetcher (for emojis!)
+    - `components/layout`: Common application shell (page layout)s
+    - `components/page`: Content component
 
 Each of the applications share the following vendor code:
 
+- `htm`
 - `react`
 - `react-dom`
 - `react-router-dom`
 
-For convenience, these apps all share via the root package (would be independent in real scenario).
+For convenience, these apps all share via the root package (would be independent in real scenario, or part of `webpack-mfe-shared`).
 
 - `public/index.html`: Common HTML template
 - `webpack.config.js`: Webpack config wrapper
