@@ -1,0 +1,13 @@
+{
+  "name": "webpack-mfe-shared",
+  "version": "0.0.1",
+  "private": true,
+  "repository": "https://github.com/FormidableLabs/webpack-mfe",
+  "author": "Ryan Roemer <ryan.roemer@formidable.com>",
+  "license": "MIT",
+  "main": "./src/index.js",
+  "dependencies": {
+    "htm": "^3.0.3",
+    "react": "^16.13.0"
+  }
+}

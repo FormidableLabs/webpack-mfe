@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 // TODO: Abstract this (or a memo fn).
 const _data = () => {

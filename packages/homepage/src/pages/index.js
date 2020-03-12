@@ -2,9 +2,7 @@ import React from "react";
 import Page from "../components/page";
 
 import { fetchItem } from "../data/index";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 const Item = React.lazy(() => import("app_item/components/item"));
 

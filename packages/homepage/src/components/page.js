@@ -1,7 +1,4 @@
-
-import React from "react";
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 const Page = ({ name, children }) => html `
   <div id="main">

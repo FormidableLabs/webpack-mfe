@@ -1,8 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 const CheckoutButton = () => html `
   <${Link}

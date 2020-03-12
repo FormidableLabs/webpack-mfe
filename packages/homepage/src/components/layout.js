@@ -14,9 +14,7 @@ import {
 
 import { Menu } from "./menu";
 import Homepage from "../pages/index";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 // ----------------------------------------------------------------------------
 // Shared components

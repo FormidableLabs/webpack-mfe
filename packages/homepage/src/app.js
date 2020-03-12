@@ -1,9 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import htm from "htm";
+import { html } from "webpack-mfe-shared";
 
 import Layout from "./components/layout";
-const html = htm.bind(React.createElement);
 
 const App = (props) => html `<${Layout} ...${props} />`;
 

@@ -1,9 +1,7 @@
 import React from "react";
 
 import Item from "../components/item";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
+import { html } from "webpack-mfe-shared";
 
 // TODO: Abstract this (or a memo fn).
 const _data = () => {
