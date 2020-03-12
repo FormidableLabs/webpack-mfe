@@ -52,7 +52,11 @@ const APP_LINKS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 const Layout = ({ app }) => html `
   <div id="layout">
     <${Router}>
-      <${Menu} app="${app} (${location.port})" pages=${PAGE_LINKS} apps=${APP_LINKS} />
+      <${Menu}
+        app="${app}${location.port ? ` (${location.port})` : ""}"
+        pages=${PAGE_LINKS}
+        apps=${APP_LINKS}
+      />
       <${Switch}>
         <${Route} exact=${true} path="/" component=${Homepage} />
         <${Route} exact=${true} path="/item/" component=${ItemsPage} />

@@ -51,13 +51,9 @@ const main = async () => {
   await Promise.all(APPS.map(async (app, i) => {
     const domain = domains[i];
     const project = path.resolve(__dirname, `../../packages/${app}/dist`);
+
     logMsg(chalk `Deploying to ${PROD ? "production" : "staging"} {cyan ${domain}}`);
-
-    // TODO: HERE -- Need to get this back into root webpack config as a build thing.
-    // OR just build here...
-
-    // TODO: HERE "--project", project, "--domain", domain
-    await execa("bash", ["-c", "echo ${APPS}"], execOpts);
+    await execa("surge", ["--project", project, "--domain", domain], execOpts);
   }));
 };
 

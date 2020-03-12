@@ -27,9 +27,6 @@ notifications:
     on_failure: always
 
 script:
-  # Build all packages for production
-  - yarn run build
-  # All other checks.
   - yarn run check
 
 jobs:
@@ -37,13 +34,15 @@ jobs:
     - stage: deployment
       node_js: '12'
       script:
-        - echo "TODO STAGING DEPLOY"
-        - ls packages/*/dist || echo "NO DIST"
+        # Deploy PR to staging
+        - yarn clean
+        - yarn deploy
       deploy:
         # Deploy master to production
         - provider: script
           script: >-
-            echo "TODO PROD DEPLOY"
+            yarn clean &&
+            PROD=true yarn deploy
           skip_cleanup: true
           on:
             branch: master
