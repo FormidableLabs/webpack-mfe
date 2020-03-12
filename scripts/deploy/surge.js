@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Upload docs to surge.
+ * Build and deploy docs to surge.
  */
 const path = require("path");
 const chalk = require("chalk");
@@ -14,10 +14,6 @@ const APPS = [
   "cart",
   "checkout"
 ];
-
-const EXECA_OPTS = {
-  stdio: "inherit"
-};
 
 const { log } = console;
 const logMsg = (msg) => log(chalk `[{cyan deploy/surge}] ${msg}`);
@@ -36,15 +32,32 @@ const main = async () => {
     return;
   }
 
-  logMsg(chalk `Uploading files to {cyan ${JSON.stringify(domains)}}`);
+  // Execution options.
+  const envApps = Object.fromEntries(APPS.map((app, i) => [app, `https://${domains[i]}`]));
+  const execOpts = {
+    stdio: "inherit",
+    env: {
+      ...process.env,
+      APPS: JSON.stringify(envApps)
+    }
+  };
+
+  // Build.
+  logMsg(chalk `Building applications {cyan ${JSON.stringify(APPS)}}`);
+  await execa("yarn", ["build"], execOpts);
+
+  // Deploy.
+  logMsg(chalk `Preparing deploys to {cyan ${JSON.stringify(domains)}}`);
   await Promise.all(APPS.map(async (app, i) => {
     const domain = domains[i];
     const project = path.resolve(__dirname, `../../packages/${app}/dist`);
-    logMsg(chalk `Deploying {cyan ${domain}}`);
+    logMsg(chalk `Deploying to ${PROD ? "production" : "staging"} {cyan ${domain}}`);
 
     // TODO: HERE -- Need to get this back into root webpack config as a build thing.
     // OR just build here...
-    await execa("echo", ["--project", project, "--domain", domain], EXECA_OPTS);
+
+    // TODO: HERE "--project", project, "--domain", domain
+    await execa("bash", ["-c", "echo ${APPS}"], execOpts);
   }));
 };
 
