@@ -1,5 +1,3 @@
-import React from "react";
-
 import Item from "../components/item";
 import { html, Page } from "webpack-mfe-shared";
 
@@ -16,10 +14,4 @@ const ItemPage = ({ location, match }) => {
   `;
 };
 
-const LazyItemPage = (props) => html `
-  <${React.Suspense} fallback=" ">
-    <${ItemPage} ...${props} />
-  </${React.Suspense}>
-`;
-
-export default LazyItemPage;
+export default ItemPage;

@@ -25,10 +25,5 @@ const ItemsPage = () => {
   `;
 };
 
-const LazyItemsPage = (props) => html `
-  <${React.Suspense} fallback=" ">
-    <${ItemsPage} ...${props} />
-  </${React.Suspense}>
-`;
 
-export default LazyItemsPage;
+export default ItemsPage;

@@ -38,21 +38,42 @@ const APP_LINKS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 // ----------------------------------------------------------------------------
 // Component
 // ----------------------------------------------------------------------------
-let Homepage;
-let ItemsPage;
-let ItemPage;
-let CartPage;
-let CheckoutPage;
-let ThankYouPage;
+const PAGE_IMPORTS = {
+  Homepage: () => import("app_homepage/pages/homepage"),
+  ItemsPage: () => import("app_item/pages/items"),
+  ItemPage: () => import("app_item/pages/item"),
+  CartPage: () => import("app_cart/pages/cart"),
+  CheckoutPage: () => import("app_checkout/pages/checkout"),
+  ThankYouPage: () => import("app_checkout/pages/thank-you")
+};
+// Since apps provide their own page components, lazily (+ eagerly) populate
+// a global cache of pages to use.
+const PAGE_CACHE = Object.fromEntries(Object.keys(PAGE_IMPORTS).map((name) => [name, null]));
+console.log("TODO HERE 001", { PAGE_CACHE });
+
+const getPages = (pages) => {
+  Object.keys(PAGE_CACHE).forEach((name) => {
+    if (!PAGE_CACHE[name]) {
+      PAGE_CACHE[name] = pages[name] || React.lazy(eagerImport(PAGE_IMPORTS[name]));
+    }
+  });
+
+  console.log("TODO HERE 002", { PAGE_CACHE });
+
+  return PAGE_CACHE;
+};
+
 const Layout = ({ app, pages = {} }) => {
   // Lazy imports, using provided pages directly first.
   // Each app container is responsible for injecting direct pages.
-  Homepage = Homepage || pages.Homepage || React.lazy(eagerImport(() => import("app_homepage/pages/homepage")));
-  ItemsPage = ItemsPage || pages.ItemsPage || React.lazy(eagerImport(() => import("app_item/pages/items")));
-  ItemPage = ItemPage || pages.ItemPage || React.lazy(eagerImport(() => import("app_item/pages/item")));
-  CartPage = CartPage || pages.CartPage || React.lazy(eagerImport(() => import("app_cart/pages/cart")));
-  CheckoutPage = CheckoutPage || pages.CheckoutPage || React.lazy(eagerImport(() => import("app_checkout/pages/checkout")));
-  ThankYouPage = ThankYouPage || pages.ThankYouPage || React.lazy(eagerImport(() => import("app_checkout/pages/thank-you")));
+  const {
+    Homepage,
+    ItemsPage,
+    ItemPage,
+    CartPage,
+    CheckoutPage,
+    ThankYouPage
+  } = getPages(pages);
 
   return html `
     <div id="layout">
@@ -76,7 +97,7 @@ const Layout = ({ app, pages = {} }) => {
 };
 
 const LazyLayout = (props) => html `
-  <${React.Suspense} fallback=" ">
+  <${React.Suspense} fallback=${null}>
     <${Layout} ...${props} />
   </${React.Suspense}>
 `;
