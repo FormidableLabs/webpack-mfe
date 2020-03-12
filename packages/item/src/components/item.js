@@ -1,12 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { html } from "webpack-mfe-shared";
+import { html, fetchItem } from "webpack-mfe-shared";
 
-// TODO: Abstract this (or a memo fn).
-const _data = () => {
-  _data.prom = _data.prom || import("app_homepage/data/index");
-  return _data.prom;
-};
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
@@ -32,8 +27,7 @@ const Item = ({ id, name, emoji }) => {
       return;
     }
 
-    _data()
-      .then(({ fetchItem }) => fetchItem({ id }))
+    fetchItem({ id })
       .then((d) => setItem(d))
       .catch(() => {});
   }, [item, location]);

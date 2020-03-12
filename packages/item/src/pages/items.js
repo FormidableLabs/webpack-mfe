@@ -1,13 +1,7 @@
 import React from "react";
 
 import Item from "../components/item";
-import { html } from "webpack-mfe-shared";
-
-// TODO: Abstract this (or a memo fn).
-const _data = () => {
-  _data.prom = _data.prom || import("app_homepage/data/index");
-  return _data.prom;
-};
+import { html, fetchRandomItems } from "webpack-mfe-shared";
 
 // ----------------------------------------------------------------------------
 // Shared components
@@ -26,8 +20,7 @@ const Message = ({ msg }) => html `
 const ItemsPage = () => {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    _data()
-      .then(({ fetchRandomItems }) => fetchRandomItems())
+    fetchRandomItems()
       .then((d) => setData(d))
       .catch(() => {});
   }, []);
