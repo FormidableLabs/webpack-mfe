@@ -1,17 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import htm from "htm";
+import { html, Layout } from "webpack-mfe-shared";
+import ItemsPage from "./pages/items";
+import ItemPage from "./pages/item";
 
-const Layout = React.lazy(() => import("app_homepage/components/layout"));
-const html = htm.bind(React.createElement);
-
-const App = (props) => html `
-  <${React.Suspense} fallback=" ">
-    <${Layout} ...${props} />
-  </${React.Suspense}>
-`;
+const App = (props) => html `<${Layout} ...${props} />`;
 
 ReactDOM.render(
-  html `<${App} app="Item" />`,
+  html `<${App} app="Item" pages=${{ ItemsPage, ItemPage }} />`,
   document.getElementById("root")
 );

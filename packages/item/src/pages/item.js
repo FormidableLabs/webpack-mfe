@@ -1,18 +1,6 @@
-import React from "react";
-
 import Item from "../components/item";
+import { html, Page } from "webpack-mfe-shared";
 
-import htm from "htm";
-const html = htm.bind(React.createElement);
-
-// ----------------------------------------------------------------------------
-// Shared components
-// ----------------------------------------------------------------------------
-const Page = React.lazy(() => import("app_homepage/components/page"));
-
-// ----------------------------------------------------------------------------
-// Components
-// ----------------------------------------------------------------------------
 const ItemPage = ({ location, match }) => {
   const item = ((location || {}).state || {}).item;
   const id = ((match || {}).params || {}).id;
@@ -26,10 +14,4 @@ const ItemPage = ({ location, match }) => {
   `;
 };
 
-const LazyItemPage = (props) => html `
-  <${React.Suspense} fallback=" ">
-    <${ItemPage} ...${props} />
-  </${React.Suspense}>
-`;
-
-export default LazyItemPage;
+export default ItemPage;

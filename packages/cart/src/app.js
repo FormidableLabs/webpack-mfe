@@ -1,17 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import htm from "htm";
+import { html, Layout } from "webpack-mfe-shared";
+import CartPage from "./pages/cart";
 
-const Layout = React.lazy(() => import("app_homepage/components/layout"));
-const html = htm.bind(React.createElement);
-
-const App = (props) => html `
-  <${React.Suspense} fallback=" ">
-    <${Layout} ...${props} />
-  </${React.Suspense}>
-`;
+const App = (props) => html `<${Layout} ...${props} />`;
 
 ReactDOM.render(
-  html `<${App} app="Cart" />`,
+  html `<${App} app="Cart" pages=${{ CartPage }} />`,
   document.getElementById("root")
 );

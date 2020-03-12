@@ -1,18 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { html, fetchItem, eagerImport } from "webpack-mfe-shared";
 
-import htm from "htm";
-const html = htm.bind(React.createElement);
-
-// TODO: Abstract this (or a memo fn).
-const _data = () => {
-  _data.prom = _data.prom || import("app_homepage/data/index");
-  return _data.prom;
-};
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
-const AddToCart = React.lazy(() => import("app_cart/components/add-to-cart"));
+const AddToCart = React.lazy(eagerImport(() => import("app_cart/components/add-to-cart")));
 
 // ----------------------------------------------------------------------------
 // Components
@@ -34,8 +27,7 @@ const Item = ({ id, name, emoji }) => {
       return;
     }
 
-    _data()
-      .then(({ fetchItem }) => fetchItem({ id }))
+    fetchItem({ id })
       .then((d) => setItem(d))
       .catch(() => {});
   }, [item, location]);

@@ -52,7 +52,7 @@ module.exports = ({ app, title, exposes = {} }) => ({
       // Form: `{ app_homepage: "app_homepage" }`
       remotes: Object.fromEntries(Object.keys(APPS).map((name) => [`app_${name}`, `app_${name}`])),
       exposes,
-      shared: ["react", "react-dom", "react-router-dom"]
+      shared: ["htm", "react", "react-dom", "react-router-dom"]
     }),
     new HtmlWebpackPlugin({
       ...htmlPluginConfig,

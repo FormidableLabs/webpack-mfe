@@ -11,9 +11,9 @@
     "serve": "serve -c ../../../serve.json -l 3003 dist"
   },
   "dependencies": {
-    "htm": "^3.0.3",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "webpack-mfe-shared": "*"
   },
   "devDependencies": {
     "html-webpack-plugin": "PutziSan/html-webpack-plugin",

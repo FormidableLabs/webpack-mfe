@@ -1,12 +1,7 @@
 import React from "react";
-import Page from "../components/page";
+import { html, fetchItem, eagerImport, Page } from "webpack-mfe-shared";
 
-import { fetchItem } from "../data/index";
-
-import htm from "htm";
-const html = htm.bind(React.createElement);
-
-const Item = React.lazy(() => import("app_item/components/item"));
+const Item = React.lazy(eagerImport(() => import("app_item/components/item")));
 
 const FAVS = [
   { emoji: "🐶", id: 1275 },
