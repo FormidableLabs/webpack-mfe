@@ -36,10 +36,7 @@ We run build watchers and localhost serving independently as follows (with relev
     - `components/checkout-button`: Checkout button for cart
     - `pages/checkout`: Checkout page
     - `pages/thank-you`: Thank you page for after a purchase
-- `packages/shared`: Shared dependencies for the other applications. Simulates a common base repository.
-    - `data/index`: REST API data fetcher (for emojis!)
-    - `components/layout`: Common application shell (page layout)s
-    - `components/page`: Content component
+- `packages/shared`: Shared dependencies for the other applications. Simulates a common base repository. Includes things like `html` wrapper, `eagerImport`, `fetch*`, and `Page` + `Layout` components.
 
 Each of the applications share the following vendor code:
 
