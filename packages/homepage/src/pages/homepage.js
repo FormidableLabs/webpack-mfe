@@ -1,7 +1,7 @@
 import React from "react";
-import { html, fetchItem, Page } from "webpack-mfe-shared";
+import { html, fetchItem, eagerImport, Page } from "webpack-mfe-shared";
 
-const Item = React.lazy(() => import("app_item/components/item"));
+const Item = React.lazy(eagerImport(() => import("app_item/components/item")));
 
 const FAVS = [
   { emoji: "🐶", id: 1275 },

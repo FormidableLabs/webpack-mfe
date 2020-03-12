@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { html, Layout } from "webpack-mfe-shared";
+import ItemsPage from "./pages/items";
+import ItemPage from "./pages/item";
 
 const App = (props) => html `
   <${React.Suspense} fallback=" ">
@@ -9,6 +11,6 @@ const App = (props) => html `
 `;
 
 ReactDOM.render(
-  html `<${App} app="Item" />`,
+  html `<${App} app="Item" pages=${{ ItemsPage, ItemPage }} />`,
   document.getElementById("root")
 );
