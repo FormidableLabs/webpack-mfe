@@ -1,0 +1,48 @@
+language: node_js
+
+node_js:
+  - '12'
+
+# Use container-based Travis infrastructure.
+sudo: false
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    # **Staging**: surge (`Surge.sh`)
+    # SURGE_LOGIN
+    - secure: "rqdAlQhs+OodIrjrNawZbrrqkqbbtUAMqqGim0zAdEcE0THjpkxMzjHuBnOKEwQ5VF1xJivh/w3HbjFtrNRlSGU26RfitY8JdfuDD2ptINTP4rH2eYWq3gvF4KQZbUhoiSZe9L8iIbkRprewPvACQ3ui37bGVH9PWtvO6is8FY3NRj3Yf/AaNRJT1vj0zSZrwJ+cLZNXfBT+Riq3StVq4vElKjpxEqktd/H2RdCVrUEis2sNnr88yporFeBLySvU2HtZgqp4ezmzUOlBpdzZfODzV74GdQwKAGLe9SeoZxFsdgvGEjV5JY0bF/DyuWaBRrf3MSInCgNOZDfwH4gtDSmV+Cby2RUCjnHqX6gaYWDLXoCaUdeoj35jf9ViOTZCxV9kMz5ahm8+YfE0bHvtue1YF3Dqdu7dxHpIdVto/fK7ezh3/AVKg+5jBpSpE5qkTiGBMXvsgzjXl1D7l+MekdU0I/A+BCMLROMze4W6aBhxPGsfTJY20v89rs3pEe/k2wiAHup3mV2iWUP4uQPdHDD8zjP4kfVPpvR87RZ32Lb89LTMF4WvOCK4Hol86E1YyZteQMpJVNsJslslxvzQG4L0mUqZIrvhTmfoi/5f4WE9dOY3LwNlxcMNleis64VE0LhakvIOpwXkv7Bt0T/viR9XRfsx83nw/wnw3Y+u6C0="
+    # SURGE_TOKEN
+    - secure: "n9xNyuoKNVAP37L8qBec16G7fANd0Q1SOPb7JqmIiFTOGxwUkkF2UDkh6CGK2Ii9aOHRFwb3gr9dXSkxQcp/nDuFXGNe+P53Sd6q0El/555DpGXu/vXDtaVBLx5H2jD9wf8/bqo0z1VYe5H7ks/B0D8C0eAqiru6oU+5u3FUSbJ+XXbf2c1jwxP8FckMbBA5XZT1RI/i+5Pge3YIfsV9GcJTV6Izx6JfC3BOKB+w85z3f6WXBy5R8qGXLu+5Ax6IVre03roh7QpSgIyrqAWJJ0oMxMvDGjUrnRuszVkHzEbWhLJFGqdggZS7XIhfWKZbaeYy3srirvjkBMr8rZsfdaSJUXnoCno2ro6xPVcrS+0n565KsJPTgQ6dW0AYvhJn6K9u54ar25hhIg+U7+TpOjaBO4itwRM4bqpqqxg3D5UmJsnpbmzns9+NG0xBQuEbjE+3BbUeUwT6E1t/jCIz1YuaQJTTH+pTA4cKG2RDfdpab6In1y6jqv084wuiFz1OwH+fS0aX8/YD2V6xK65Hr3s4GRfHOnOfTYTC+YzvgiwAhZqawP4m7rDjxZToPxt0wXcTGiUJ+yPXyZIAcclZvHMERlSE+PrA5sZsyjJwdIK5OffrSie+r0IF3PtI9OOLsZcHE/mdxrP14xfNlTpgRwxIfnPTq4A+vcbsqvT+WDE="
+
+install:
+  - yarn install --frozen-lockfile
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+script:
+  - yarn run check
+
+jobs:
+  include:
+    - stage: deployment
+      node_js: '12'
+      script:
+        # Deploy PR to staging
+        - yarn clean
+        - yarn deploy
+      deploy:
+        # Deploy master to production
+        - provider: script
+          script: >-
+            yarn clean &&
+            PROD=true yarn deploy
+          skip_cleanup: true
+          on:
+            branch: master

@@ -1,0 +1,24 @@
+{
+  "name": "webpack-mfe-checkout",
+  "version": "0.0.1",
+  "private": true,
+  "repository": "https://github.com/FormidableLabs/webpack-mfe",
+  "author": "Ryan Roemer <ryan.roemer@formidable.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode=development",
+    "watch": "yarn -s build --watch",
+    "serve": "serve -c ../../../serve.json -l 3004 dist"
+  },
+  "dependencies": {
+    "htm": "^3.0.3",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "PutziSan/html-webpack-plugin",
+    "serve": "^11.3.0",
+    "webpack": "webpack/webpack#dev-1",
+    "webpack-cli": "^3.3.11"
+  }
+}

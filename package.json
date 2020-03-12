@@ -2,23 +2,38 @@
   "name": "webpack-mfe",
   "version": "0.0.1",
   "description": "Sample webpack5 project / experiment",
-  "main": "index.js",
+  "private": true,
   "repository": "https://github.com/FormidableLabs/webpack-mfe",
   "author": "Ryan Roemer <ryan.roemer@formidable.com>",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "preversion": "yarn run check",
+    "_envs": "echo [{\\\"PKG\\\":\\\"homepage\\\"},{\\\"PKG\\\":\\\"item\\\"},{\\\"PKG\\\":\\\"cart\\\"},{\\\"PKG\\\":\\\"checkout\\\"}]",
     "lint": "eslint .",
     "check": "yarn lint",
-    "check-ci": "yarn lint"
+    "check-ci": "yarn lint",
+    "build:pkg": "cd packages/${PKG} && yarn build",
+    "watch:pkg": "cd packages/${PKG} && yarn watch",
+    "serve:pkg": "cd packages/${PKG} && yarn serve",
+    "clean": "rm -rf packages/*/dist",
+    "build": "builder envs -l info build:pkg $(yarn -s _envs)",
+    "watch-and-serve:pkg": "builder concurrent watch:pkg serve:pkg",
+    "serve": "builder envs -l info serve:pkg $(yarn -s _envs)",
+    "deploy": "node scripts/deploy/surge.js",
+    "start": "builder envs -l info watch-and-serve:pkg $(yarn -s _envs)"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
+    "builder": "^5.0.0",
+    "chalk": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-formidable": "^4.0.0",
     "eslint-plugin-filenames": "^1.3.2",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.19.0"
+    "execa": "^4.0.0",
+    "surge": "^0.21.3"
   }
 }
