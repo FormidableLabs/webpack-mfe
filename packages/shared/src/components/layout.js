@@ -13,12 +13,12 @@ import {
 } from "react-router-dom";
 
 import { Menu } from "./menu";
-import Homepage from "../pages/index";
-import { html } from "webpack-mfe-shared";
+import { html } from "../index";
 
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
+const Homepage = React.lazy(() => import("app_homepage/pages/index"));
 const ItemsPage = React.lazy(() => import("app_item/pages/items"));
 const ItemPage = React.lazy(() => import("app_item/pages/item"));
 const CartPage = React.lazy(() => import("app_cart/pages/cart"));

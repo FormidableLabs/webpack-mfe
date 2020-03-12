@@ -1,7 +1,5 @@
 import ReactDOM from "react-dom";
-import { html } from "webpack-mfe-shared";
-
-import Layout from "./components/layout";
+import { html, Layout } from "webpack-mfe-shared";
 
 const App = (props) => html `<${Layout} ...${props} />`;
 

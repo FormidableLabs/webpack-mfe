@@ -1,16 +1,8 @@
 import React from "react";
 
 import Item from "../components/item";
-import { html, fetchRandomItems } from "webpack-mfe-shared";
+import { html, fetchRandomItems, Page } from "webpack-mfe-shared";
 
-// ----------------------------------------------------------------------------
-// Shared components
-// ----------------------------------------------------------------------------
-const Page = React.lazy(() => import("app_homepage/components/page"));
-
-// ----------------------------------------------------------------------------
-// Components
-// ----------------------------------------------------------------------------
 const Message = ({ msg }) => html `
   <div style=${{ textAlign: "center" }} className="pure-u-1-1">
     <p style=${{ fontSize: "1.5em", lineHeight: "2em" }}>${msg}</p>

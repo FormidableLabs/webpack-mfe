@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { html } from "webpack-mfe-shared";
-
-const Layout = React.lazy(() => import("app_homepage/components/layout"));
+import { html, Layout } from "webpack-mfe-shared";
 
 const App = (props) => html `
   <${React.Suspense} fallback=" ">

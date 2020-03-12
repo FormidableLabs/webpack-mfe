@@ -1,16 +1,8 @@
 import React from "react";
 
 import PurchaseButton from "../components/purchase-button";
-import { html } from "webpack-mfe-shared";
+import { html, Page } from "webpack-mfe-shared";
 
-// ----------------------------------------------------------------------------
-// Shared components
-// ----------------------------------------------------------------------------
-const Page = React.lazy(() => import("app_homepage/components/page"));
-
-// ----------------------------------------------------------------------------
-// Components
-// ----------------------------------------------------------------------------
 const CheckoutPage = () => html `
     <${Page} name="Checkout">
       <div style=${{ textAlign: "center" }} className="pure-u-1-1">

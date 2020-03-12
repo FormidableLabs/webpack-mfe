@@ -4,7 +4,7 @@
 
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { html } from "webpack-mfe-shared";
+import { html } from "../index";
 
 export const MenuHeader = ({ name, to }) => html `
   <${Link} className="pure-menu-heading" to="${to}">${name}</${Link}>

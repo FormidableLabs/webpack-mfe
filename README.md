@@ -92,7 +92,7 @@ Articles:
 MFE / Infrastructure:
 
 - To use anything shared or overrideable it appears the entire entry point needs to be wrapped in a dynamic `import()`.
-- To import a component from another MFE, use something like `const Page = React.lazy(() => import("app_homepage/components/page"));`
+- To import a component from another MFE, use something like `const CheckoutButton = React.lazy(() => import("app_checkout/components/checkout-button"))`.
 
 This Demo:
 

@@ -1,16 +1,8 @@
 import React from "react";
 
 import Item from "../components/item";
-import { html } from "webpack-mfe-shared";
+import { html, Page } from "webpack-mfe-shared";
 
-// ----------------------------------------------------------------------------
-// Shared components
-// ----------------------------------------------------------------------------
-const Page = React.lazy(() => import("app_homepage/components/page"));
-
-// ----------------------------------------------------------------------------
-// Components
-// ----------------------------------------------------------------------------
 const ItemPage = ({ location, match }) => {
   const item = ((location || {}).state || {}).item;
   const id = ((match || {}).params || {}).id;

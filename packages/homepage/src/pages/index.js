@@ -1,7 +1,5 @@
 import React from "react";
-import Page from "../components/page";
-
-import { html, fetchItem } from "webpack-mfe-shared";
+import { html, fetchItem, Page } from "webpack-mfe-shared";
 
 const Item = React.lazy(() => import("app_item/components/item"));
 
