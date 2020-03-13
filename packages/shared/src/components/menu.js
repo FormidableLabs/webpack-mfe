@@ -10,7 +10,7 @@ export const MenuHeader = ({ name, to }) => html `
   <${Link} className="pure-menu-heading" to="${to}">${name}</${Link}>
 `;
 
-export const MenuPage = ({ name, to }) => {
+export const MenuPage = React.memo(({ name, to }) => {
   const location = useLocation();
   const [active, setActive] = React.useState(false);
   React.useEffect(() => {
@@ -24,9 +24,9 @@ export const MenuPage = ({ name, to }) => {
       </${NavLink}>
     </li>
   `;
-};
+});
 
-export const MenuApp = ({ name, href }) => {
+export const MenuApp = React.memo(({ name, href }) => {
   // Add port if number specified
   const port = (/:[0-9]+$/).test(href) ? ` (${href.split(":").pop()})` : "";
   const active = href.startsWith(location.origin);
@@ -37,9 +37,9 @@ export const MenuApp = ({ name, href }) => {
       </a>
     </li>
   `;
-};
+});
 
-export const Menu = ({ app, pages = [], apps = [] }) => html `
+export const Menu = React.memo(({ app, pages = [], apps = [] }) => html `
   <div id="menu">
     <nav className="pure-menu">
       <${MenuHeader} name="${app}" to="/" />
@@ -52,4 +52,4 @@ export const Menu = ({ app, pages = [], apps = [] }) => html `
       <div className="pure-menu-divided" />
     </nav>
   </div>
-`;
+`);

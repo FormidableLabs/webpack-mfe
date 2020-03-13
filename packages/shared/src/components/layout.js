@@ -66,7 +66,7 @@ const getPages = (pages) => {
 // ----------------------------------------------------------------------------
 // Component
 // ----------------------------------------------------------------------------
-const Layout = ({ app, pages = {} }) => {
+const Layout = React.memo(({ app, pages = {} }) => {
   // Lazy imports, using provided pages directly first.
   // Each app container is responsible for injecting direct pages.
   const {
@@ -97,7 +97,7 @@ const Layout = ({ app, pages = {} }) => {
       </${Router}>
     </div>
   `;
-};
+});
 
 const LazyLayout = (props) => html `
   <${React.Suspense} fallback=${null}>
