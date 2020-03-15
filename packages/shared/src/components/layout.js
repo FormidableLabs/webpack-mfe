@@ -69,6 +69,7 @@ const getPages = (pages) => {
 const Layout = React.memo(({ app, pages = {} }) => {
   // Lazy imports, using provided pages directly first.
   // Each app container is responsible for injecting direct pages.
+  const allPages = getPages(pages);
   const {
     Homepage,
     ItemsPage,
@@ -76,7 +77,7 @@ const Layout = React.memo(({ app, pages = {} }) => {
     CartPage,
     CheckoutPage,
     ThankYouPage
-  } = getPages(pages);
+  } = allPages;
 
   return html `
     <div id="layout" key="layout" >
@@ -94,11 +95,15 @@ const Layout = React.memo(({ app, pages = {} }) => {
           <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
           <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
         </${Switch}>
+        <!-- HACK: Do one default render of all components to avoid jank. -->
+        <div id="preload" key="preload" hidden=${true}>
+          ${Object.keys(PAGE_IMPORTS).map((name) =>
+    html `<${allPages[name]} key="preload-${name}" />`
+  )}
+        </div>
       </${Router}>
     </div>
-    <!-- TODO: TRY AND REMOVE -- <Homepage /> -->
-    <div id="preload" key="preload" hidden={true}>
-    </div>
+
   `;
 });
 

@@ -3,7 +3,6 @@
  *
  * Uses: https://github.com/abourtnik/emojis-world
  */
-// TODO: Memoize data fetch?
 
 const _fetchEmoji = ({ query }) => fetch(`https://api.emojisworld.io/v1/${query}`)
   .then((response) => response.json())
