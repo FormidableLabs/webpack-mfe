@@ -10,11 +10,8 @@ const AddToCart = React.lazy(eagerImport(() => import("app_cart/components/add-t
 // ----------------------------------------------------------------------------
 // Components
 // ----------------------------------------------------------------------------
-const Loading = ({ id }) => html `
-  <div style=${{ textAlign: "center" }} className="pure-u-1-3">
-    <em style=${{ fontSize: "1.5em", lineHeight: "2em" }}>Loading item ${id}...</em>
-  </div>
-`;
+// Keep position with same colored period.
+const EMPTY = html `<span style=${{ color: "#eeeeee" }} >.</span>`;
 
 const Item = ({ id, name, emoji }) => {
   const idNum = parseInt(id, 10);
@@ -32,11 +29,6 @@ const Item = ({ id, name, emoji }) => {
       .catch(() => {});
   }, [item, location]);
 
-  // Wait for data load.
-  if (!item.name || item.id !== idNum) {
-    return html `<${Loading} id=${id} />`;
-  }
-
   return html `
     <div
       className="pure-u-1-3"
@@ -46,8 +38,8 @@ const Item = ({ id, name, emoji }) => {
         to=${{ pathname: `/item/${item.id}`, state: { item } }}
         style=${{ color: "inherit", textDecoration: "none" }}
       >
-        <p style=${{ fontSize: "10em" }}>${item.emoji}</p>
-        <p style=${{ fontSize: "2em" }}>${item.name}</p>
+        <p style=${{ fontSize: "10em" }}>${item.emoji || EMPTY}</p>
+        <p style=${{ fontSize: "2em" }}>${item.name || EMPTY}</p>
       </${Link}>
       <${AddToCart} />
     </div>

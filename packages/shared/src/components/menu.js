@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { html } from "../index";
 
 export const MenuHeader = ({ name, to }) => html `
@@ -19,9 +19,9 @@ export const MenuPage = React.memo(({ name, to }) => {
 
   return html `
     <li className="pure-menu-item${active ? " pure-menu-selected" : ""}">
-      <${NavLink} className="pure-menu-link" to="${to}">
+      <${Link} className="pure-menu-link" to="${to}">
         ${name}
-      </${NavLink}>
+      </${Link}>
     </li>
   `;
 });

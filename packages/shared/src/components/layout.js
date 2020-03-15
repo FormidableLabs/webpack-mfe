@@ -79,7 +79,7 @@ const Layout = React.memo(({ app, pages = {} }) => {
   } = getPages(pages);
 
   return html `
-    <div id="layout">
+    <div id="layout" key="layout" >
       <${Router}>
         <${Menu}
           app="${app}${location.port ? ` (${location.port})` : ""}"
@@ -95,6 +95,9 @@ const Layout = React.memo(({ app, pages = {} }) => {
           <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
         </${Switch}>
       </${Router}>
+    </div>
+    <!-- TODO: TRY AND REMOVE -- <Homepage /> -->
+    <div id="preload" key="preload" hidden={true}>
     </div>
   `;
 });

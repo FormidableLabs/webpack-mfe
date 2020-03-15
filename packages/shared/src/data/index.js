@@ -13,16 +13,28 @@ const _fetchEmoji = ({ query }) => fetch(`https://api.emojisworld.io/v1/${query}
     return null;
   });
 
-export const fetchItem = ({ id }) => _fetchEmoji({ query: `emojis/${id}` })
-  .then((data = {}) => {
-    if (data.totals !== 1) {
-      // eslint-disable-next-line no-console
-      console.error(`Bad data for ${id}: ${JSON.stringify(data)}`);
-      return null;
-    }
+const _fetchItemCache = {};
 
-    return data.results[0];
-  });
+export const fetchItem = ({ id, cache = true }) => {
+  if (cache && _fetchItemCache[id]) {
+    return Promise.resolve(_fetchItemCache[id]);
+  }
+
+  return _fetchEmoji({ query: `emojis/${id}` })
+    .then((data = {}) => {
+      if (data.totals !== 1) {
+        // eslint-disable-next-line no-console
+        console.error(`Bad data for ${id}: ${JSON.stringify(data)}`);
+        return null;
+      }
+
+      if (cache) {
+        _fetchItemCache[id] = data.results[0];
+      }
+
+      return data.results[0];
+    });
+};
 
 export const fetchRandomItems = () => _fetchEmoji({ query: "random?limit=9" })
   .then((data) => data.results);
