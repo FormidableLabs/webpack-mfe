@@ -98,12 +98,14 @@ const Layout = React.memo(({ app, pages = {} }) => {
           apps=${APP_LINKS}
         />
         <${Switch}>
-          <${Route} exact=${true} path="/" component=${Homepage} />
-          <${Route} exact=${true} path="/item/" component=${ItemsPage} />
-          <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
-          <${Route} exact=${true} path="/cart" component=${CartPage} />
-          <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
-          <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
+          <${React.Suspense} fallback=${null}>
+            <${Route} exact=${true} path="/" component=${Homepage} />
+            <${Route} exact=${true} path="/item/" component=${ItemsPage} />
+            <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
+            <${Route} exact=${true} path="/cart" component=${CartPage} />
+            <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
+            <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
+          </${React.Suspense}>
         </${Switch}>
         <${Preload} pages=${allPages} />
       </${Router}>
@@ -112,10 +114,4 @@ const Layout = React.memo(({ app, pages = {} }) => {
   `;
 });
 
-const LazyLayout = (props) => html `
-  <${React.Suspense} fallback=${null}>
-    <${Layout} ...${props} />
-  </${React.Suspense}>
-`;
-
-export default LazyLayout;
+export default Layout;

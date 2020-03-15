@@ -58,10 +58,4 @@ const CartPage = () => html `
   </${Page}>
 `;
 
-const LazyCartPage = (props) => html `
-  <${React.Suspense} fallback=${null}>
-    <${CartPage} ...${props} />
-  </${React.Suspense}>
-`;
-
-export default LazyCartPage;
+export default CartPage;
