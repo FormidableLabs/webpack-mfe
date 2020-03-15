@@ -63,16 +63,6 @@ const getPages = (pages) => {
   return PAGE_CACHE;
 };
 
-// HACK: Lazily preload all the base pages for faster transitions.
-// See: https://medium.com/hackernoon/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d
-const Preload = ({ pages }) => html `
-  <${React.Suspense} fallback=${null}>
-    <div id="preload" key="preload" hidden=${true}>
-      ${Object.entries(pages).map(([name, Comp]) => html `<${Comp} key="preload-${name}" />`)}
-    </div>
-  </${React.Suspense}>
-`;
-
 // ----------------------------------------------------------------------------
 // Component
 // ----------------------------------------------------------------------------
@@ -107,7 +97,6 @@ const Layout = React.memo(({ app, pages = {} }) => {
             <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
           </${React.Suspense}>
         </${Switch}>
-        <${Preload} pages=${allPages} />
       </${Router}>
     </div>
 
