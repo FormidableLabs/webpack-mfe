@@ -63,6 +63,15 @@ const getPages = (pages) => {
   return PAGE_CACHE;
 };
 
+// HACK: Lazily preload all the base pages for faster transitions.
+const Preload = ({ pages }) => html `
+  <${React.Suspense} fallback=${null}>
+    <div id="preload" key="preload" hidden=${true}>
+      ${Object.entries(pages).map(([name, Comp]) => html `<${Comp} key="preload-${name}" />`)}
+    </div>
+  </${React.Suspense}>
+`;
+
 // ----------------------------------------------------------------------------
 // Component
 // ----------------------------------------------------------------------------
@@ -95,14 +104,7 @@ const Layout = React.memo(({ app, pages = {} }) => {
           <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
           <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
         </${Switch}>
-        <!-- HACK: Do one default render of all components to avoid jank. -->
-        <${React.Suspense} fallback=${null}>
-          <div id="preload" key="preload" hidden=${true}>
-            ${Object.keys(PAGE_IMPORTS).map((name) =>
-    html `<${allPages[name]} key="preload-${name}" />`
-  )}
-          </div>
-        </${React.Suspense}>
+        <${Preload} pages=${allPages} />
       </${Router}>
     </div>
 
