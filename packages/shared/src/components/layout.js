@@ -64,6 +64,7 @@ const getPages = (pages) => {
 };
 
 // HACK: Lazily preload all the base pages for faster transitions.
+// See: https://medium.com/hackernoon/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d
 const Preload = ({ pages }) => html `
   <${React.Suspense} fallback=${null}>
     <div id="preload" key="preload" hidden=${true}>
