@@ -96,7 +96,7 @@ const Layout = React.memo(({ app, pages = {} }) => {
           <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
         </${Switch}>
         <!-- HACK: Do one default render of all components to avoid jank. -->
-        <${React.Suspense} fallback={null}>
+        <${React.Suspense} fallback=${null}>
           <div id="preload" key="preload" hidden=${true}>
             ${Object.keys(PAGE_IMPORTS).map((name) =>
     html `<${allPages[name]} key="preload-${name}" />`
