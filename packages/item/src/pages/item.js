@@ -1,9 +1,12 @@
 import Item from "../components/item";
 import { html, Page } from "webpack-mfe-shared";
 
+// Default: weary cat face
+const DEFAULT_ID = 102;
+
 const ItemPage = ({ location, match }) => {
   const item = ((location || {}).state || {}).item;
-  const id = ((match || {}).params || {}).id;
+  const id = ((match || {}).params || {}).id || DEFAULT_ID;
 
   return html `
     <${Page} name="Item">

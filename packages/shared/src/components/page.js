@@ -1,6 +1,7 @@
+import React from "react";
 import { html } from "webpack-mfe-shared";
 
-const Page = ({ name, children }) => html `
+const Page = React.memo(({ name, children }) => html `
   <div id="main">
     <div className="header">
       <h1>${name}</h1>
@@ -9,6 +10,6 @@ const Page = ({ name, children }) => html `
       ${children}
     </div>
   </div>
-`;
+`);
 
 export default Page;

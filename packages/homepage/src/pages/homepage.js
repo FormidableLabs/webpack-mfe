@@ -30,7 +30,11 @@ const Homepage = () => {
         <p style=${{ fontSize: "1.5em", lineHeight: "2em" }}>
           Welcome to the emoji store!
         </p>
-        ${items.map((props) => html `<${Item} ...${props} key="home-item-${props.id}" />`)}
+        ${items.map((props) => html `
+          <${React.Suspense} fallback=${null} key="home-item-${props.id}">
+            <${Item} ...${props} />
+          </${React.Suspense}>
+        `)}
       </div>
     </${Page}>
   `;

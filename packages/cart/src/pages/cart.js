@@ -47,7 +47,9 @@ const CartPage = () => html `
         </tr>
         <tr key="cart-checkout" style=${{ borderTop: "1px solid #cbcbcb" }}>
           <td colSpan="4" style=${{ textAlign: "center" }}>
-            <${CheckoutButton} />
+            <${React.Suspense} fallback=${null}>
+              <${CheckoutButton} />
+            </${React.Suspense}>
           </td>
         </tr>
       </tbody>
@@ -58,10 +60,4 @@ const CartPage = () => html `
   </${Page}>
 `;
 
-const LazyCartPage = (props) => html `
-  <${React.Suspense} fallback=${null}>
-    <${CartPage} ...${props} />
-  </${React.Suspense}>
-`;
-
-export default LazyCartPage;
+export default CartPage;

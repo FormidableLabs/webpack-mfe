@@ -3,14 +3,14 @@
  */
 
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { html } from "../index";
 
 export const MenuHeader = ({ name, to }) => html `
   <${Link} className="pure-menu-heading" to="${to}">${name}</${Link}>
 `;
 
-export const MenuPage = ({ name, to }) => {
+export const MenuPage = React.memo(({ name, to }) => {
   const location = useLocation();
   const [active, setActive] = React.useState(false);
   React.useEffect(() => {
@@ -19,14 +19,14 @@ export const MenuPage = ({ name, to }) => {
 
   return html `
     <li className="pure-menu-item${active ? " pure-menu-selected" : ""}">
-      <${NavLink} className="pure-menu-link" to="${to}">
+      <${Link} className="pure-menu-link" to="${to}">
         ${name}
-      </${NavLink}>
+      </${Link}>
     </li>
   `;
-};
+});
 
-export const MenuApp = ({ name, href }) => {
+export const MenuApp = React.memo(({ name, href }) => {
   // Add port if number specified
   const port = (/:[0-9]+$/).test(href) ? ` (${href.split(":").pop()})` : "";
   const active = href.startsWith(location.origin);
@@ -37,9 +37,9 @@ export const MenuApp = ({ name, href }) => {
       </a>
     </li>
   `;
-};
+});
 
-export const Menu = ({ app, pages = [], apps = [] }) => html `
+export const Menu = React.memo(({ app, pages = [], apps = [] }) => html `
   <div id="menu">
     <nav className="pure-menu">
       <${MenuHeader} name="${app}" to="/" />
@@ -52,4 +52,4 @@ export const Menu = ({ app, pages = [], apps = [] }) => html `
       <div className="pure-menu-divided" />
     </nav>
   </div>
-`;
+`);
