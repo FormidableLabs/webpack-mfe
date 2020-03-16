@@ -38,6 +38,13 @@ const APP_LINKS = Object.entries(APPS).map(([name, href]) => ({ name, href }));
 // ----------------------------------------------------------------------------
 // Lazy, shared components
 // ----------------------------------------------------------------------------
+// Simple wrapper for lazy components.
+const suspenseWrapper = (Component) => (props) => html `
+  <${React.Suspense} fallback=${null}>
+    <${Component} ...${props} />
+  </${React.Suspense}>
+`;
+
 // These imports are what we'd normally just push in a `React.lazy()`. We wrap
 // them with `React.lazy(eagerImport())` to begin loading them in the background
 // before actual use.
@@ -49,39 +56,17 @@ const PAGE_IMPORTS = {
   CheckoutPage: () => import("app_checkout/pages/checkout"),
   ThankYouPage: () => import("app_checkout/pages/thank-you")
 };
-// Since apps provide their own page components, lazily (+ eagerly) populate
-// a global cache of pages to use.
-const PAGE_CACHE = Object.fromEntries(Object.keys(PAGE_IMPORTS).map((name) => [name, null]));
-let PAGE_CACHE_FILLED = false;
 
-const suspenseWrapper = (Component) => (props) => html `
-  <${React.Suspense} fallback=${null}>
-    <${Component} ...${props} />
-  </${React.Suspense}>
-`;
-
-const getPages = (pages) => {
-  if (PAGE_CACHE_FILLED) { return PAGE_CACHE; }
-
-  Object.keys(PAGE_CACHE).forEach((name) => {
-    if (!PAGE_CACHE[name]) {
-      PAGE_CACHE[name] = suspenseWrapper(
-        pages[name] || React.lazy(eagerImport(PAGE_IMPORTS[name]))
-      );
-    }
-  });
-
-  PAGE_CACHE_FILLED = true;
-  return PAGE_CACHE;
-};
+// Wrapped up page components for use.
+const PAGES = Object.keys(PAGE_IMPORTS).reduce((pages, name) => {
+  pages[name] = suspenseWrapper(React.lazy(eagerImport(PAGE_IMPORTS[name])));
+  return pages;
+}, {});
 
 // ----------------------------------------------------------------------------
 // Component
 // ----------------------------------------------------------------------------
-const Layout = React.memo(({ app, pages = {} }) => {
-  // Lazy imports, using provided pages directly first.
-  // Each app container is responsible for injecting direct pages.
-  const allPages = getPages(pages);
+const Layout = React.memo(({ app }) => {
   const {
     Homepage,
     ItemsPage,
@@ -89,7 +74,7 @@ const Layout = React.memo(({ app, pages = {} }) => {
     CartPage,
     CheckoutPage,
     ThankYouPage
-  } = allPages;
+  } = PAGES;
 
   return html `
     <div id="layout" key="layout" >
