@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { html, fetchItem, eagerImport } from "webpack-mfe-shared";
+import { html, fetchItem } from "webpack-mfe-shared";
 
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
-const AddToCart = React.lazy(eagerImport(() => import("app_cart/components/add-to-cart")));
+const AddToCart = React.lazy(() => import(/* webpackPrefetch: true */ "app_cart/components/add-to-cart"));
 
 // ----------------------------------------------------------------------------
 // Components

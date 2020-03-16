@@ -14,8 +14,6 @@ import {
 
 import { Menu } from "./menu";
 import { html } from "../util/html";
-import { eagerImport } from "../util/import";
-
 // ----------------------------------------------------------------------------
 // Constants
 // ----------------------------------------------------------------------------
@@ -45,21 +43,23 @@ const suspenseWrapper = (Component) => (props) => html `
   </${React.Suspense}>
 `;
 
-// These imports are what we'd normally just push in a `React.lazy()`. We wrap
-// them with `React.lazy(eagerImport())` to begin loading them in the background
-// before actual use.
+// Lazy runtime imports.
+// Use webpack prefetch enhancments.
+// See, e.g.:
+// - https://webpack.js.org/guides/code-splitting/#prefetchingpreloading-modules
+// - https://loadable-components.com/docs/prefetching/
 const PAGE_IMPORTS = {
-  Homepage: () => import("app_homepage/pages/homepage"),
-  ItemsPage: () => import("app_item/pages/items"),
-  ItemPage: () => import("app_item/pages/item"),
-  CartPage: () => import("app_cart/pages/cart"),
-  CheckoutPage: () => import("app_checkout/pages/checkout"),
-  ThankYouPage: () => import("app_checkout/pages/thank-you")
+  Homepage: () => import(/* webpackPrefetch: true */ "app_homepage/pages/homepage"),
+  ItemsPage: () => import(/* webpackPrefetch: true */ "app_item/pages/items"),
+  ItemPage: () => import(/* webpackPrefetch: true */ "app_item/pages/item"),
+  CartPage: () => import(/* webpackPrefetch: true */ "app_cart/pages/cart"),
+  CheckoutPage: () => import(/* webpackPrefetch: true */ "app_checkout/pages/checkout"),
+  ThankYouPage: () => import(/* webpackPrefetch: true */ "app_checkout/pages/thank-you")
 };
 
 // Wrapped up page components for use.
 const PAGES = Object.keys(PAGE_IMPORTS).reduce((pages, name) => {
-  pages[name] = suspenseWrapper(React.lazy(eagerImport(PAGE_IMPORTS[name])));
+  pages[name] = suspenseWrapper(React.lazy(PAGE_IMPORTS[name]));
   return pages;
 }, {});
 

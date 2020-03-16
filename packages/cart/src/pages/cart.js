@@ -1,12 +1,12 @@
 import React from "react";
-import { html, Page, eagerImport } from "webpack-mfe-shared";
+import { html, Page } from "webpack-mfe-shared";
 
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
-const CheckoutButton = React.lazy(eagerImport(
+const CheckoutButton = React.lazy(
   () => import("app_checkout/components/checkout-button")
-));
+);
 
 // ----------------------------------------------------------------------------
 // Components

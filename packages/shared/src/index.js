@@ -1,6 +1,5 @@
 // Utils
 export { html } from "./util/html";
-export { eagerImport } from "./util/import";
 
 // Data
 export { fetchItem, fetchRandomItems } from "./data/index";

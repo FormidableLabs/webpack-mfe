@@ -36,7 +36,7 @@ We run build watchers and localhost serving independently as follows (with relev
     - `components/checkout-button`: Checkout button for cart
     - `pages/checkout`: Checkout page
     - `pages/thank-you`: Thank you page for after a purchase
-- `packages/shared`: Shared dependencies for the other applications. Simulates a common base repository. Includes things like `html` wrapper, `eagerImport`, `fetch*`, and `Page` + `Layout` components.
+- `packages/shared`: Shared dependencies for the other applications. Simulates a common base repository. Includes things like `html` wrapper, `fetch*`, and `Page` + `Layout` components.
 
 Each of the applications share the following vendor code:
 
@@ -92,7 +92,7 @@ Articles:
 MFE / Infrastructure:
 
 - To use anything shared or overrideable it appears the entire entry point needs to be wrapped in a dynamic `import()`.
-- To import a component from another MFE, use something like `const CheckoutButton = React.lazy(() => import("app_checkout/components/checkout-button"))`.
+- To import a component from another MFE, use something like `const CheckoutButton = React.lazy(() => import("app_checkout/components/checkout-button"))`. Consider `/* webpackPrefetch: true */` annotation before the import string if component should be [prefetched](https://webpack.js.org/guides/code-splitting/#prefetchingpreloading-modules).
 
 This Demo:
 
