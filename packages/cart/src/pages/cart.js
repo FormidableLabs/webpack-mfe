@@ -47,7 +47,9 @@ const CartPage = () => html `
         </tr>
         <tr key="cart-checkout" style=${{ borderTop: "1px solid #cbcbcb" }}>
           <td colSpan="4" style=${{ textAlign: "center" }}>
-            <${CheckoutButton} />
+            <${React.Suspense} fallback=${null}>
+              <${CheckoutButton} />
+            </${React.Suspense}>
           </td>
         </tr>
       </tbody>

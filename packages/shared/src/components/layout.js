@@ -52,14 +52,26 @@ const PAGE_IMPORTS = {
 // Since apps provide their own page components, lazily (+ eagerly) populate
 // a global cache of pages to use.
 const PAGE_CACHE = Object.fromEntries(Object.keys(PAGE_IMPORTS).map((name) => [name, null]));
+let PAGE_CACHE_FILLED = false;
+
+const suspenseWrapper = (Component) => (props) => html `
+  <${React.Suspense} fallback=${null}>
+    <${Component} ...${props} />
+  </${React.Suspense}>
+`;
 
 const getPages = (pages) => {
+  if (PAGE_CACHE_FILLED) { return PAGE_CACHE; }
+
   Object.keys(PAGE_CACHE).forEach((name) => {
     if (!PAGE_CACHE[name]) {
-      PAGE_CACHE[name] = pages[name] || React.lazy(eagerImport(PAGE_IMPORTS[name]));
+      PAGE_CACHE[name] = suspenseWrapper(
+        pages[name] || React.lazy(eagerImport(PAGE_IMPORTS[name]))
+      );
     }
   });
 
+  PAGE_CACHE_FILLED = true;
   return PAGE_CACHE;
 };
 
@@ -88,14 +100,12 @@ const Layout = React.memo(({ app, pages = {} }) => {
           apps=${APP_LINKS}
         />
         <${Switch}>
-          <${React.Suspense} fallback=${null}>
-            <${Route} exact=${true} path="/" component=${Homepage} />
-            <${Route} exact=${true} path="/item/" component=${ItemsPage} />
-            <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
-            <${Route} exact=${true} path="/cart" component=${CartPage} />
-            <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
-            <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
-          </${React.Suspense}>
+          <${Route} exact=${true} path="/" component=${Homepage} />
+          <${Route} exact=${true} path="/item/" component=${ItemsPage} />
+          <${Route} exact=${true} path="/item/:id" component=${ItemPage} />
+          <${Route} exact=${true} path="/cart" component=${CartPage} />
+          <${Route} exact=${true} path="/checkout" component=${CheckoutPage} />
+          <${Route} exact=${true} path="/checkout/thank-you" component=${ThankYouPage} />
         </${Switch}>
       </${Router}>
     </div>

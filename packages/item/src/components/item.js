@@ -41,7 +41,9 @@ const Item = ({ id, name, emoji }) => {
         <p style=${{ fontSize: "10em" }}>${item.emoji || EMPTY}</p>
         <p style=${{ fontSize: "2em" }}>${item.name || EMPTY}</p>
       </${Link}>
-      <${AddToCart} />
+      <${React.Suspense} fallback=${null}>
+        <${AddToCart} />
+      </${React.Suspense}>
     </div>
   `;
 };
