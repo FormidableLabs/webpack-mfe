@@ -16,9 +16,9 @@
     "webpack-mfe-shared": "*"
   },
   "devDependencies": {
-    "html-webpack-plugin": "PutziSan/html-webpack-plugin",
+    "html-webpack-plugin": "^4.3.0",
     "serve": "^11.3.0",
-    "webpack": "webpack/webpack#dev-1",
+    "webpack": "^5.0.0-beta.16",
     "webpack-cli": "^3.3.11"
   }
 }
