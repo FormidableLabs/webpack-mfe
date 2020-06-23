@@ -6,6 +6,6 @@ module.exports = config({
   app: "homepage",
   title: "Homepage",
   exposes: {
-    "pages/homepage": "./src/pages/homepage"
+    "./pages/homepage": "./src/pages/homepage"
   }
 });
