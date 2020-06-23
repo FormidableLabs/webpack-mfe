@@ -11,6 +11,7 @@
     "serve": "serve -c ../../../serve.json -l 3002 dist"
   },
   "dependencies": {
+    "@module-federation/dashboard-plugin": "^1.1.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",

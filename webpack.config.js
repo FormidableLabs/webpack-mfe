@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const DashboardPlugin = require("@module-federation/dashboard-plugin");
 
 // Application constants to share across all builds.
 const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
@@ -53,6 +54,10 @@ module.exports = ({ app, title, exposes = {} }) => ({
       remotes: Object.fromEntries(Object.keys(APPS).map((name) => [`app_${name}`, `app_${name}`])),
       exposes,
       shared: ["htm", "react", "react-dom", "react-router-dom"]
+    }),
+    // TODO: Place in a guard and conditionally add.
+    new DashboardPlugin({
+      dashboardURL: "http://localhost:4000/api/update"
     }),
     new HtmlWebpackPlugin({
       ...htmlPluginConfig,
