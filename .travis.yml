@@ -8,7 +8,7 @@ sudo: false
 
 branches:
   only:
-    - master
+    - main
 
 env:
   global:
@@ -38,11 +38,11 @@ jobs:
         - yarn clean
         - yarn deploy
       deploy:
-        # Deploy master to production
+        # Deploy main to production
         - provider: script
           script: >-
             yarn clean &&
             PROD=true yarn deploy
           skip_cleanup: true
           on:
-            branch: master
+            branch: main
