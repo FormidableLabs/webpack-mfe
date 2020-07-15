@@ -14,6 +14,8 @@ const APPS = process.env.APPS ? JSON.parse(process.env.APPS) : {
   checkout: "http://127.0.0.1:3004"
 };
 
+const USE_DASHBOARD = process.env.DASHBOARD === "true";
+
 const htmlPluginConfig = {
   template: path.resolve(__dirname, "public/index.html"),
   chunks: ["main"],
@@ -55,10 +57,9 @@ module.exports = ({ app, title, exposes = {} }) => ({
       exposes,
       shared: ["htm", "react", "react-dom", "react-router-dom"]
     }),
-    // TODO: Place in a guard and conditionally add.
-    new DashboardPlugin({
+    USE_DASHBOARD ? new DashboardPlugin({
       dashboardURL: "http://localhost:4000/api/update"
-    }),
+    }) : null,
     new HtmlWebpackPlugin({
       ...htmlPluginConfig,
       title
@@ -70,5 +71,5 @@ module.exports = ({ app, title, exposes = {} }) => ({
       // https://surge.sh/help/adding-a-200-page-for-client-side-routing
       filename: "200.html"
     })
-  ]
+  ].filter(Boolean)
 });
