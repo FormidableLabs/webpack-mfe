@@ -55,10 +55,18 @@ module.exports = ({ app, title, exposes = {} }) => ({
       // Form: `{ app_homepage: "app_homepage" }`
       remotes: Object.fromEntries(Object.keys(APPS).map((name) => [`app_${name}`, `app_${name}`])),
       exposes,
-      shared: ["htm", "react", "react-dom", "react-router-dom"]
+      shared: ["react", "react-dom", "react-router-dom"]
     }),
     USE_DASHBOARD ? new DashboardPlugin({
-      dashboardURL: "http://localhost:4000/api/update"
+      dashboardURL: "http://localhost:4000/api/update",
+      // TODO: This shouldn't be required. Previously got
+      // `"remote" is not allowed to be empty` error without.
+      metadata: {
+        source: {
+          url: `https://github.com/FormidableLabs/webpack-mfe/tree/main/packages/${app}`
+        },
+        remote: "http://localhost:3005/remoteEntry.js"
+      }
     }) : null,
     new HtmlWebpackPlugin({
       ...htmlPluginConfig,
