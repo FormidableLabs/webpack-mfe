@@ -58,7 +58,12 @@ jobs:
       - name: Checks
         run: yarn run check
 
-      - name: Deployment
-        run: echo "TODO ${PROD}"
+      - name: Deployment (Staging)
+        if: github.ref != 'refs/heads/main'
+        run: yarn deploy
+
+      - name: Deployment (Production)
+        if: github.ref == 'refs/heads/main'
+        run: yarn deploy
         env:
-          PROD: ${{ github.ref == 'refs/heads/main' }}
+          PROD: true
