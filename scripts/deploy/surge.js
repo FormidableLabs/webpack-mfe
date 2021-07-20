@@ -7,7 +7,7 @@ const path = require("path");
 const chalk = require("chalk");
 const execa = require("execa");
 
-const { TRAVIS_PULL_REQUEST, TRAVIS_JOB_NUMBER, PROD } = process.env;
+const { GITHUB_REF, GITHUB_RUN_ID, PROD } = process.env;
 const APPS = [
   "homepage",
   "item",
@@ -18,16 +18,21 @@ const APPS = [
 const { log } = console;
 const logMsg = (msg) => log(chalk `[{cyan deploy/surge}] ${msg}`);
 
+// eslint-disable-next-line max-statements
 const main = async () => {
   let domains;
   if (PROD) {
     domains = APPS.map((app) => `emojistore-${app}.surge.sh`);
-  } else if (TRAVIS_PULL_REQUEST && TRAVIS_PULL_REQUEST !== "false") {
-    domains = APPS.map((app) => `emojistore-staging-${TRAVIS_PULL_REQUEST}-${app}.surge.sh`);
+  } else if (GITHUB_REF) {
+    const ghMatch = (/refs\/pull\/([0-9]+)\/merge/).exec(GITHUB_REF);
+    if (ghMatch && ghMatch[1]) {
+      const ghPullRequest = ghMatch[1];
+      domains = APPS.map((app) => `emojistore-staging-${ghPullRequest}-${app}.surge.sh`);
+    }
   }
 
   if (!domains) {
-    const info = JSON.stringify({ PROD, TRAVIS_PULL_REQUEST, TRAVIS_JOB_NUMBER });
+    const info = JSON.stringify({ PROD, GITHUB_REF, GITHUB_RUN_ID });
     logMsg(chalk `Skipping surge deployment: {gray ${info}}`);
     return;
   }
