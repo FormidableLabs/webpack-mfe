@@ -5,6 +5,7 @@ import { html, fetchItem, eagerImport } from "webpack-mfe-shared";
 // ----------------------------------------------------------------------------
 // Shared components
 // ----------------------------------------------------------------------------
+// eslint-disable-next-line import/no-unresolved
 const AddToCart = React.lazy(eagerImport(() => import("app_cart/components/add-to-cart")));
 
 // ----------------------------------------------------------------------------

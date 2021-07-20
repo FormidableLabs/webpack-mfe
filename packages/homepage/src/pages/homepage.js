@@ -1,6 +1,7 @@
 import React from "react";
 import { html, fetchItem, eagerImport, Page } from "webpack-mfe-shared";
 
+// eslint-disable-next-line import/no-unresolved
 const Item = React.lazy(eagerImport(() => import("app_item/components/item")));
 
 const FAVS = [
