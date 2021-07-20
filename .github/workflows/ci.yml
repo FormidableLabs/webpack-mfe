@@ -66,6 +66,14 @@ jobs:
       - name: TODO HERE ECHO
         run: echo "${DEPLOYMENT_URL}"
 
+      - name: TODO HERE TEST HAS
+        if: ${{ env.DEPLOYMENT_URL }}
+        run: echo "Has deployment URL"
+
+      - name: TODO HERE TEST DOESN'T HAS
+        if: ${{ !env.DEPLOYMENT_URL }}
+        run: echo "Does not have deployment URL"
+
       - name: Deployment (Staging)
         if: github.ref != 'refs/heads/main'
         run: yarn deploy
