@@ -59,4 +59,6 @@ jobs:
         run: yarn run check
 
       - name: Deployment
-        run: echo "TODO DEPLOY"
+        run: echo "TODO ${PROD}"
+        env:
+          PROD: ${{ github.ref == 'refs/heads/main' }}
