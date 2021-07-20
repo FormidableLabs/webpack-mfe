@@ -61,9 +61,14 @@ jobs:
       - name: Deployment (Staging)
         if: github.ref != 'refs/heads/main'
         run: yarn deploy
+        env:
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Deployment (Production)
         if: github.ref == 'refs/heads/main'
         run: yarn deploy
         env:
           PROD: true
+          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
