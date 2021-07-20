@@ -48,6 +48,7 @@ const suspenseWrapper = (Component) => (props) => html `
 // These imports are what we'd normally just push in a `React.lazy()`. We wrap
 // them with `React.lazy(eagerImport())` to begin loading them in the background
 // before actual use.
+/* eslint-disable import/no-unresolved */
 const PAGE_IMPORTS = {
   Homepage: () => import("app_homepage/pages/homepage"),
   ItemsPage: () => import("app_item/pages/items"),
@@ -56,6 +57,7 @@ const PAGE_IMPORTS = {
   CheckoutPage: () => import("app_checkout/pages/checkout"),
   ThankYouPage: () => import("app_checkout/pages/thank-you")
 };
+/* eslint-enable import/no-unresolved */
 
 // Wrapped up page components for use.
 const PAGES = Object.keys(PAGE_IMPORTS).reduce((pages, name) => {

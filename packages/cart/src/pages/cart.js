@@ -5,6 +5,7 @@ import { html, Page, eagerImport } from "webpack-mfe-shared";
 // Shared components
 // ----------------------------------------------------------------------------
 const CheckoutButton = React.lazy(eagerImport(
+  // eslint-disable-next-line import/no-unresolved
   () => import("app_checkout/components/checkout-button")
 ));
 
