@@ -58,6 +58,14 @@ jobs:
       - name: Checks
         run: yarn run check
 
+      - name: Set deployment url
+        run: node ./scripts/deploy/surge-domains.js DEPLOYMENT_URL >> $GITHUB_ENV
+        env:
+          PROD: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: TODO HERE ECHO
+        run: echo "${DEPLOYMENT_URL}"
+
       - name: Deployment (Staging)
         if: github.ref != 'refs/heads/main'
         run: yarn deploy
