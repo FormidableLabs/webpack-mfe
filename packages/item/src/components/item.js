@@ -19,17 +19,24 @@ const Item = ({ id, name, emoji }) => {
   const [item, setItem] = React.useState({ id, name, emoji });
 
   React.useEffect(() => {
+    // Skip on bad fetch
+    if (item === false) { return; }
+
     // Skip if already have data for current element.
-    if (item.name && item.id === idNum) {
+    if (item && item.name && item.id === idNum) {
       return;
     }
 
     fetchItem({ id })
       .then((d) => setItem(d))
-      .catch(() => {});
+      .catch((err) => {
+        // Bad request
+        setItem(false);
+        console.error(err); // eslint-disable-line no-console
+      });
   }, [item, location]);
 
-  return html `
+  return item ? html `
     <div
       className="pure-u-1-3"
       style=${{ textAlign: "center", backgroundColor: "#eeeeee", paddingBottom: "10px" }}
@@ -45,7 +52,7 @@ const Item = ({ id, name, emoji }) => {
         <${AddToCart} />
       </${React.Suspense}>
     </div>
-  `;
+  ` : null;
 };
 
 export default Item;
