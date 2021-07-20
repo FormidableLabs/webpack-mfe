@@ -21,17 +21,30 @@ export const fetchItem = ({ id, cache = true }) => {
 
   return _fetchEmoji({ query: `emojis/${id}` })
     .then((data = {}) => {
-      if (data.totals !== 1) {
-        // eslint-disable-next-line no-console
-        console.error(`Bad data for ${id}: ${JSON.stringify(data)}`);
-        return null;
+      let emojiData;
+
+      // Legacy API
+      if (Array.isArray(data.results)) {
+        if (data.totals !== 1) {
+          // eslint-disable-next-line no-console
+          console.error(`Bad data for ${id}: ${JSON.stringify(data)}`);
+          return null;
+        }
+
+        emojiData = data.results[0];
       }
+
+      // Object form
+      if (data.id >= 0) {
+        emojiData = data;
+      }
+
 
       if (cache) {
-        _fetchItemCache[id] = data.results[0];
+        _fetchItemCache[id] = emojiData;
       }
 
-      return data.results[0];
+      return emojiData;
     });
 };
 

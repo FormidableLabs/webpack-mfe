@@ -21,7 +21,9 @@ const Homepage = () => {
     Promise
       .all(FAVS.map(({ id }) => fetchItem({ id })))
       .then((favs) => setItems(favs))
-      .catch(() => {});
+      .catch((err) => {
+        console.err(err); // eslint-disable-line no-console
+      });
   }, [items]);
 
   return html `
