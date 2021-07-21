@@ -68,12 +68,12 @@ jobs:
         env:
           PROD: ${{ github.ref == 'refs/heads/main' }}
 
-      - uses: chrnorm/deployment-action@releases/v1
+      - uses: chrnorm/deployment-action@releases/v1.2.0
         if: env.DEPLOYMENT_URL
         name: Create GitHub deployment
         id: deployment
         with:
-          token: ${{ github.token }}
+          token: "${{ github.token }}"
           target_url: ${{ env.DEPLOYMENT_URL }}
           environment: ${{ env.DEPLOYMENT_ENV }}
 
@@ -96,7 +96,7 @@ jobs:
         if: always() && env.DEPLOYMENT_URL
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: ${{ github.token }}
+          token: "${{ github.token }}"
           target_url: ${{ env.DEPLOYMENT_URL }}
           state: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
