@@ -10,6 +10,19 @@ const APPS = [
   "checkout"
 ];
 
+// For GitHub deployments
+const getEnvironment = () => {
+  if (PROD === "true") {
+    return "production";
+  }
+
+  if (GH_PULL_REQUEST) {
+    return `staging-${GH_PULL_REQUEST}`;
+  }
+
+  return "unknown";
+};
+
 const getDomain = (app) => {
   if (PROD === "true") {
     return `emojistore-${app}.surge.sh`;
@@ -30,16 +43,44 @@ const getDomains = () => {
   return domains.length ? domains : null;
 };
 
-// Script
-// $ node ./scripts/deploy/surge-domains.js DEPLOYMENT_URL
-// DEPLOYMENT_URL=<GENERATED VALUE>
-const main = async () => {
-  // Return checkout domain
-  const envVar = process.argv[2]; // eslint-disable-line no-magic-numbers
-  if (!envVar) { throw new Error("Must pass environment variable name"); }
+// Exports
+module.exports = {
+  APPS,
+  getDomains
+};
 
-  const domain = getDomain("checkout") || "";
-  process.stdout.write(domain ? `${envVar}=${domain}` : "");
+// ============================================================================
+// Script
+// ============================================================================
+const ACTIONS = {
+  url: () => {
+    // Return checkout domain
+    const envVar = process.argv[3]; // eslint-disable-line no-magic-numbers
+    if (!envVar) { throw new Error("Must pass environment variable name"); }
+
+    const domain = getDomain("checkout") || "";
+    process.stdout.write(domain ? `${envVar}=${domain}` : "");
+  },
+  env: () => {
+    const envVar = process.argv[3]; // eslint-disable-line no-magic-numbers
+    if (!envVar) { throw new Error("Must pass environment variable name"); }
+
+    process.stdout.write(`${envVar}=${getEnvironment()}`);
+  }
+};
+
+// $ node ./scripts/deploy/surge-domains.js <action> [opts]
+// $ node ./scripts/deploy/surge-domains.js url DEPLOYMENT_URL
+// DEPLOYMENT_URL=<GENERATED VALUE>
+// $ node ./scripts/deploy/surge-domains.js env DEPLOYMENT_ENV
+// DEPLOYMENT_ENV=<production|staging-<PR_NUM>>
+const main = async () => {
+  const action = process.argv[2]; // eslint-disable-line no-magic-numbers
+  if (!action) {
+    throw new Error(`Unknown action: ${action}`);
+  }
+
+  ACTIONS[action]();
 };
 
 if (require.main === module) {
@@ -48,9 +89,3 @@ if (require.main === module) {
     process.exit(1); // eslint-disable-line no-process-exit
   });
 }
-
-// Exports
-module.exports = {
-  APPS,
-  getDomains
-};

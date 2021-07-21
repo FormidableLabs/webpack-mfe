@@ -59,32 +59,47 @@ jobs:
         run: yarn run check
 
       - name: Set deployment url
-        run: node ./scripts/deploy/surge-domains.js DEPLOYMENT_URL >> $GITHUB_ENV
+        run: node ./scripts/deploy/surge-domains.js url DEPLOYMENT_URL >> $GITHUB_ENV
         env:
           PROD: ${{ github.ref == 'refs/heads/main' }}
 
-      - name: TODO HERE ECHO
-        run: echo "${DEPLOYMENT_URL}"
-
-      - name: TODO HERE TEST HAS
-        if: ${{ env.DEPLOYMENT_URL }}
-        run: echo "Has deployment URL"
-
-      - name: TODO HERE TEST DOESN'T HAS
-        if: ${{ !env.DEPLOYMENT_URL }}
-        run: echo "Does not have deployment URL"
-
-      - name: Deployment (Staging)
-        if: github.ref != 'refs/heads/main'
-        run: yarn deploy
+      - name: Set deployment environment
+        run: node ./scripts/deploy/surge-domains.js env DEPLOYMENT_ENV >> $GITHUB_ENV
         env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          PROD: ${{ github.ref == 'refs/heads/main' }}
 
-      - name: Deployment (Production)
-        if: github.ref == 'refs/heads/main'
-        run: yarn deploy
-        env:
-          PROD: true
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+      - name: TODO DEBUG
+        run: echo "ENV ${DEPLOYMENT_URL}, ${DEPLOYMENT_ENV}"
+
+      # - uses: chrnorm/deployment-action@releases/v1
+      #   if: env.DEPLOYMENT_URL
+      #   name: Create GitHub deployment
+      #   id: deployment
+      #   with:
+      #     token: ${{ github.token }}
+      #     target_url: ${{ env.DEPLOYMENT_URL }}
+      #     environment: ${{ env.DEPLOYMENT_ENV }}
+
+      # - name: Deployment (Staging)
+      #   if: github.ref != 'refs/heads/main'
+      #   run: yarn deploy
+      #   env:
+      #     SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      #     SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      # - name: Deployment (Production)
+      #   if: github.ref == 'refs/heads/main'
+      #   run: yarn deploy
+      #   env:
+      #     PROD: true
+      #     SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      #     SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      # - name: Update GitHub deployment status
+      #   if: always() && env.DEPLOYMENT_URL
+      #   uses: chrnorm/deployment-status@releases/v1
+      #   with:
+      #     token: "${{ github.token }}"
+      #     target_url: ${{ env.DEPLOYMENT_URL }}
+      #     state: ${{ job.status }}
+      #     deployment_id: ${{ steps.deployment.outputs.deployment_id }}
