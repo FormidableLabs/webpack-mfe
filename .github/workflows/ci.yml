@@ -68,9 +68,9 @@ jobs:
         env:
           PROD: ${{ github.ref == 'refs/heads/main' }}
 
-      - uses: chrnorm/deployment-action@releases/v1.2.0
+      - name: Create GitHub deployment
         if: env.DEPLOYMENT_URL
-        name: Create GitHub deployment
+        uses: chrnorm/deployment-action@releases/v1
         id: deployment
         with:
           token: "${{ github.token }}"
