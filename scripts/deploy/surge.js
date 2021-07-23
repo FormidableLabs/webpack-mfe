@@ -8,28 +8,14 @@ const chalk = require("chalk");
 const execa = require("execa");
 
 const { GITHUB_REF, GITHUB_RUN_ID, PROD } = process.env;
-const APPS = [
-  "homepage",
-  "item",
-  "cart",
-  "checkout"
-];
+const { APPS, getDomains } = require("./surge-domains");
 
 const { log } = console;
 const logMsg = (msg) => log(chalk `[{cyan deploy/surge}] ${msg}`);
 
 // eslint-disable-next-line max-statements
 const main = async () => {
-  let domains;
-  if (PROD) {
-    domains = APPS.map((app) => `emojistore-${app}.surge.sh`);
-  } else if (GITHUB_REF) {
-    const ghMatch = (/refs\/pull\/([0-9]+)\/merge/).exec(GITHUB_REF);
-    if (ghMatch && ghMatch[1]) {
-      const ghPullRequest = ghMatch[1];
-      domains = APPS.map((app) => `emojistore-staging-${ghPullRequest}-${app}.surge.sh`);
-    }
-  }
+  const domains = getDomains();
 
   if (!domains) {
     const info = JSON.stringify({ PROD, GITHUB_REF, GITHUB_RUN_ID });

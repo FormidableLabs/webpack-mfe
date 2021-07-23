@@ -58,6 +58,26 @@ jobs:
       - name: Checks
         run: yarn run check
 
+      - name: Set deployment url
+        run: node ./scripts/deploy/surge-domains.js url DEPLOYMENT_URL >> $GITHUB_ENV
+        env:
+          PROD: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Set deployment environment
+        run: node ./scripts/deploy/surge-domains.js env DEPLOYMENT_ENV >> $GITHUB_ENV
+        env:
+          PROD: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Create GitHub deployment
+        if: env.DEPLOYMENT_URL
+        uses: bobheadxi/deployments@v0.6.0
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.DEPLOYMENT_ENV }}
+          ref: ${{ github.head_ref || github.ref }}
+
       - name: Deployment (Staging)
         if: github.ref != 'refs/heads/main'
         run: yarn deploy
@@ -72,3 +92,13 @@ jobs:
           PROD: true
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Update GitHub deployment status
+        if: always() && env.DEPLOYMENT_URL
+        uses: bobheadxi/deployments@v0.6.0
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: "https://${{ env.DEPLOYMENT_URL }}"
