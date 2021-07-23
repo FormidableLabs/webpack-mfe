@@ -76,6 +76,7 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: ${{ env.DEPLOYMENT_ENV }}
+          ref: ${{ github.head_ref || github.ref }}
 
       - name: Deployment (Staging)
         if: github.ref != 'refs/heads/main'
