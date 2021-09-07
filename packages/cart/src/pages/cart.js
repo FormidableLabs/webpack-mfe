@@ -14,9 +14,9 @@ const CheckoutButton = React.lazy(eagerImport(
 // ----------------------------------------------------------------------------
 // Static placeholder data.
 const CART_ITEMS = [
-  { emoji: "🐶", id: 1275, name: "dog face", quantity: 1, price: 1 },
-  { emoji: "🎉", id: 1691, name: "party popper", quantity: 1, price: 2 },
-  { emoji: "🦖", id: 1340, name: "T-Rex", quantity: 2, price: 3 }
+  { emoji: "🐶", id: "dog", name: "dog", quantity: 1, price: 1 },
+  { emoji: "🎉", id: "tada", name: "tada", quantity: 1, price: 2 },
+  { emoji: "🦖", id: "T-Rex", name: "T-Rex", quantity: 2, price: 3 }
 ];
 const total = CART_ITEMS.reduce((tot, { quantity, price }) => tot + quantity * price, 0);
 
