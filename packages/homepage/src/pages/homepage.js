@@ -5,9 +5,9 @@ import { html, fetchItem, eagerImport, Page } from "webpack-mfe-shared";
 const Item = React.lazy(eagerImport(() => import("app_item/components/item")));
 
 const FAVS = [
-  { emoji: "🐶", id: 1275 },
-  { emoji: "🎉", id: 1691 },
-  { emoji: "🦖", id: 1340 }
+  { id: "dog" },
+  { id: "tada" },
+  { id: "T-Rex" }
 ];
 
 const Homepage = () => {

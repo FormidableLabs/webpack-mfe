@@ -9,10 +9,12 @@ const Message = ({ msg }) => html `
   </div>
 `;
 
+const NUM_EMOJIS = 9;
+
 const ItemsPage = () => {
   const [data, setData] = React.useState(null);
   React.useEffect(() => {
-    fetchRandomItems()
+    fetchRandomItems(NUM_EMOJIS)
       .then((d) => setData(d))
       .catch(() => {});
   }, []);

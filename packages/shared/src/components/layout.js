@@ -23,7 +23,7 @@ import { eagerImport } from "../util/import";
 const PAGE_LINKS = [
   { name: "Homepage", to: "/" },
   { name: "Items", to: "/item" },
-  { name: "Item (Cat)", to: "/item/102" },
+  { name: "Item (Cat)", to: "/item/cat" },
   { name: "Cart", to: "/cart" },
   { name: "Checkout", to: "/checkout" }
 ];
