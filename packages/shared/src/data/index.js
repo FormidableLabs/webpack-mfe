@@ -1,7 +1,7 @@
 /**
  * Data helpers
  *
- * Uses: https://github.com/abourtnik/emojis-world
+ * Uses: https://developer.emojidex.com/
  */
 
 const _fetchEmoji = ({ query }) => fetch(`https://www.emojidex.com/api/v1/${query}`)
