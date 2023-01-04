@@ -1,4 +1,5 @@
-Webpack5 MFEs
+[![Webpack5 MFEs — Formidable, We build the modern web](https://raw.githubusercontent.com/FormidableLabs/webpack-mfe/main/webpack-mfe-Hero.png)](https://formidable.com/open-source/)
+
 =============
 
 A short experiment to see webpack5 MFE support in action.
